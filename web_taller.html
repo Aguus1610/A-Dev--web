@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Caso de estudio: Desarrollo de sitio web para EAD Oleohidráulica. Diseño responsive, UX optimizada y estrategia digital.">
+    <meta name="keywords" content="desarrollo web, HTML5, CSS3, JavaScript, responsive design, UX/UI, portfolio, caso de estudio">
+    <meta name="author" content="Agustín Deux">
+    <meta name="theme-color" content="#61dafb">
+    <title>Caso de Estudio: Sitio Web EAD Oleohidráulica | Agustín Deux</title>
+    
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variables CSS del sistema neon */
+        :root {
+            /* Colores */
+            --primary-color: #61dafb;
+            --secondary-color: #764abc;
+            --text-color: #e2e8f0;
+            --bg-color: #0d1117;
+            --code-bg: #1f2937;
+            --accent-color: #f97316;
+            --light-bg: #f3f4f6;
+            
+            /* Efectos */
+            --neon-color: var(--primary-color);
+            --neon-shadow: 0 0 5px rgba(97, 218, 251, 0.3);
+            --retro-shadow: 0 0 10px rgba(97, 218, 251, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Layout */
+            --spacing: clamp(1rem, 2vw, 2rem);
+            --section-padding: clamp(4rem, 6vw, 6rem) clamp(1rem, 2vw, 2rem);
+            --container-width: min(1200px, 90vw);
+            --header-height: clamp(60px, 10vh, 80px);
+            
+            --font-heading: 'Syncopate', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --border-radius: 8px;
+            --focus-outline: 3px solid var(--neon-color);
+            --grid-color: rgba(97, 218, 251, 0.1);
+            --scanline-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        /* Reset CSS optimizado */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body con efectos cyber */
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(13,17,23,0.95) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Efecto de seguimiento del mouse */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(97, 218, 251, 0.15) 0%,
+                rgba(0, 0, 0, 0) 50%),
+                linear-gradient(45deg, 
+                    rgba(97, 218, 251, 0.05) 0%,
+                    transparent 20%,
+                    transparent 80%,
+                    rgba(97, 218, 251, 0.05) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Scanlines animadas */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    var(--scanline-color) 0px,
+                    var(--scanline-color) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Header cyber style */
+        header {
+            background: linear-gradient(135deg, var(--bg-color) 0%, #1e2a3a 100%);
+            color: var(--text-color);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--neon-color);
+            box-shadow: 0 0 30px rgba(97, 218, 251, 0.2);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, var(--grid-color) 50%, transparent 51%);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% { 
+                text-shadow: 0.05em 0 0 var(--neon-color),
+                           -0.05em -0.05em 0 #ff0080,
+                           -0.05em 0.05em 0 #00ff00;
+            }
+            15% { 
+                text-shadow: -0.05em -0.025em 0 var(--neon-color),
+                           0.025em 0.025em 0 #ff0080,
+                           -0.05em -0.05em 0 #00ff00;
+            }
+        }
+        
+        .header-content .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .meta-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+        }
+        
+        /* Navegación cyber */
+        .nav-tabs {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 0;
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo-nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo a {
+            text-decoration: none;
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+            transition: all 0.3s ease;
+            cursor: none !important;
+            display: inline-block;
+            position: relative;
+            z-index: 1002;
+            pointer-events: auto;
+        }
+        
+        .logo a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 15px var(--neon-color);
+        }
+        
+        .nav-tabs ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-tabs li {
+            margin: 0;
+        }
+        
+        .nav-tabs a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-tabs a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .nav-tabs a:hover::before,
+        .nav-tabs a.active::before {
+            left: 100%;
+        }
+        
+        .nav-tabs a:hover,
+        .nav-tabs a.active {
+            background: var(--glass-bg);
+            border-bottom-color: var(--neon-color);
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: none !important;
+            padding: 0.5rem;
+            z-index: 1001;
+            pointer-events: auto;
+        }
+        
+        .hamburger .line {
+            width: 25px;
+            height: 2px;
+            background: var(--neon-color);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(97, 218, 251, 0.3);
+        }
+        
+        .hamburger.active .line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .hamburger.active .line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        /* Secciones con glass effect */
+        section {
+            padding: var(--section-padding);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, var(--grid-color) 50%, transparent 51%);
+            background-size: 30px 30px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--neon-color);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--neon-color);
+            box-shadow: 0 0 10px var(--neon-color);
+            border-radius: 2px;
+        }
+        
+        /* Glass cards */
+        .glass-effect {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+        }
+        
+        /* Neon buttons */
+        .neon-button {
+            background: transparent;
+            border: 2px solid var(--neon-color);
+            color: var(--neon-color);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: var(--neon-shadow);
+            text-decoration: none;
+            display: inline-block;
+            font-family: var(--font-body);
+            font-weight: bold;
+        }
+        
+        .neon-button:hover {
+            background: var(--neon-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--neon-color);
+        }
+        
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .neon-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Overview grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .challenge-box,
+        .solution-box {
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .challenge-box {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.1));
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+        
+        .solution-box {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.1));
+            border-color: rgba(39, 174, 96, 0.3);
+        }
+        
+        .objectives-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .objectives-list li {
+            padding: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--neon-color);
+            border-radius: 0 10px 10px 0;
+            position: relative;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .objectives-list li::before {
+            content: '🎯';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-color);
+            padding: 0.5rem;
+            border-radius: 50%;
+            border: 2px solid var(--neon-color);
+        }
+        
+        /* Tech grid */
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tech-category {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .tech-category:hover::before {
+            left: 100%;
+        }
+        
+        .tech-category:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-color);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .tech-category h4 {
+            color: var(--neon-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .tech-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-color);
+        }
+        
+        .tech-item:last-child {
+            border-bottom: none;
+        }
+        
+        .tech-badge {
+            background: var(--neon-color);
+            color: var(--bg-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+        }
+        
+        /* Demo grid */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .demo-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .demo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+            z-index: 1;
+        }
+        
+        .demo-card:hover::before {
+            left: 100%;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-color);
+            box-shadow: 0 0 30px rgba(97, 218, 251, 0.2);
+        }
+        
+        .demo-image {
+            width: 100%;
+            height: 300px;
+            background: var(--code-bg);
+            border: 2px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            position: relative;
+        }
+        
+        .demo-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .demo-content h4 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .demo-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .demo-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-color);
+        }
+        
+        .demo-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon-color);
+            font-weight: bold;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        /* Process timeline */
+        .process-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--neon-color), var(--secondary-color));
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--neon-color);
+        }
+        
+        .process-step {
+            display: flex;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .process-step:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .process-content {
+            flex: 1;
+            padding: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            margin: 0 3rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .process-content:hover {
+            border-color: var(--neon-color);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .process-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            transform: translateY(-50%);
+        }
+        
+        .process-step:nth-child(odd) .process-content::before {
+            right: -30px;
+            border-left-color: var(--glass-border);
+        }
+        
+        .process-step:nth-child(even) .process-content::before {
+            left: -30px;
+            border-right-color: var(--glass-border);
+        }
+        
+        .process-number {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--neon-color), var(--secondary-color));
+            color: var(--bg-color);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.5);
+            border: 2px solid var(--bg-color);
+        }
+        
+        /* Code showcase */
+        .code-showcase {
+            background: var(--code-bg);
+            color: var(--text-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .code-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(135deg, var(--neon-color), var(--secondary-color));
+            opacity: 0.1;
+        }
+        
+        .code-header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27ca3f; }
+        
+        .code-title {
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: var(--neon-color);
+        }
+        
+        .code-block {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .code-comment { color: #7f8c8d; }
+        .code-keyword { color: var(--neon-color); }
+        .code-string { color: #2ecc71; }
+        
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .metric-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .metric-card:hover::before {
+            left: 100%;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-color);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .metric-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--neon-color);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .metric-label {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+        
+        .metric-improvement {
+            color: var(--neon-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+        
+        /* Cursor personalizado */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(97, 218, 251, 0.4);
+            border: 2px solid var(--neon-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+            box-shadow: 0 0 10px var(--neon-color);
+        }
+        
+        /* Ocultar cursor original completamente */
+        * {
+            cursor: none !important;
+        }
+        
+        /* Forzar cursor none en todos los elementos interactivos */
+        a, button, input, textarea, select, .logo, .logo a, .hamburger {
+            cursor: none !important;
+        }
+        
+        /* Asegurar que no aparezca el pointer en hover */
+        a:hover, button:hover, .logo a:hover, .hamburger:hover {
+            cursor: none !important;
+        }
+        
+        /* Restaurar cursor en móviles */
+        @media (max-width: 768px) {
+            * {
+                cursor: auto !important;
+            }
+            
+            .cursor {
+                display: none !important;
+            }
+            
+            body::after {
+                display: none;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            color: var(--text-color);
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-nav-container {
+                padding: 1rem;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-tabs ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                border-top: none;
+                flex-direction: column;
+                width: 100%;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            
+            .nav-tabs ul.active {
+                display: flex;
+                animation: slideDown 0.3s ease forwards;
+            }
+            
+            .nav-tabs ul a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--glass-border);
+                border-left: none;
+                text-align: center;
+            }
+            
+            .nav-tabs ul a:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-tabs ul a:hover,
+            .nav-tabs ul a.active {
+                border-bottom-color: var(--neon-color);
+                background: rgba(97, 218, 251, 0.1);
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-timeline::before {
+                left: 30px;
+            }
+            
+            .process-step {
+                flex-direction: column !important;
+                margin-left: 60px;
+            }
+            
+            .process-content {
+                margin: 0;
+                margin-top: 1rem;
+            }
+            
+            .process-content::before {
+                display: none;
+            }
+            
+            .process-number {
+                left: -30px;
+                transform: translateY(-50%);
+            }
+            
+            .project-meta {
+                gap: 1.5rem;
+            }
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-effect"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="glitch">Sitio Web EAD Oleohidráulica</h1>
+                <p class="subtitle">Caso de Estudio: Desarrollo Web Completo para Empresa Industrial</p>
+                <div class="project-meta">
+                    <div class="meta-item glass-effect">
+                        <div class="meta-label">Tipo de Proyecto</div>
+                        <div class="meta-value">Landing Page Corporativa</div>
+                    </div>
+                    <div class="meta-item glass-effect">
+                        <div class="meta-label">Duración</div>
+                        <div class="meta-value">3 Semanas</div>
+                    </div>
+                    <div class="meta-item glass-effect">
+                        <div class="meta-label">Tecnologías</div>
+                        <div class="meta-value">HTML5, CSS3, JavaScript</div>
+                    </div>
+                    <div class="meta-item glass-effect">
+                        <div class="meta-label">Cliente</div>
+                        <div class="meta-value">EAD Oleohidráulica</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-tabs">
+        <div class="container">
+            <div class="logo-nav-container">
+                <div class="logo" aria-label="Logo">
+                    <a href="index.html">{ A-Dev }</a>
+                </div>
+                <ul id="nav-links">
+                    <li><a href="#overview" class="active">Resumen</a></li>
+                    <li><a href="#technologies">Tecnologías</a></li>
+                    <li><a href="#demo">Demo & Capturas</a></li>
+                    <li><a href="#process">Proceso</a></li>
+                    <li><a href="#code">Código</a></li>
+                    <li><a href="#results">Resultados</a></li>
+                </ul>
+                <button class="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
+                    <span class="line" aria-hidden="true"></span>
+                    <span class="line" aria-hidden="true"></span>
+                    <span class="line" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="overview">
+        <div class="container">
+            <h2 class="section-title neon-text">Resumen del Proyecto</h2>
+            <div class="overview-grid">
+                <div>
+                    <h3>Contexto y Desafío</h3>
+                    <p>EAD Oleohidráulica es una empresa familiar con 25 años de experiencia en sistemas oleohidráulicos, ubicada en Colonia Barón, La Pampa. Necesitaban modernizar su presencia digital para atraer nuevos clientes y profesionalizar su imagen empresarial.</p>
+                    
+                    <div class="challenge-box glass-effect">
+                        <h4>🎯 Desafío Principal</h4>
+                        <p>Crear una presencia web profesional que refleje la experiencia y calidad de la empresa, optimizada para atraer clientes industriales (cooperativas, municipios, empresas de transporte) y generar leads calificados.</p>
+                    </div>
+                    
+                    <div class="solution-box glass-effect">
+                        <h4>💡 Solución Implementada</h4>
+                        <p>Desarrollo de una landing page moderna y responsive con enfoque en conversión, destacando la experiencia, servicios especializados y casos de éxito, optimizada para SEO local.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Objetivos del Proyecto</h3>
+                    <ul class="objectives-list">
+                        <li><strong>Presencia Digital Profesional:</strong> Crear una imagen web que refleje 25 años de experiencia</li>
+                        <li><strong>Generación de Leads:</strong> Formulario optimizado para consultas comerciales</li>
+                        <li><strong>SEO Local:</strong> Posicionamiento para búsquedas en La Pampa y región</li>
+                        <li><strong>Responsive Design:</strong> Accesibilidad desde todos los dispositivos</li>
+                        <li><strong>Carga Rápida:</strong> Optimización para conexiones lentas rurales</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technologies">
+        <div class="container">
+            <h2 class="section-title neon-text">Stack Tecnológico</h2>
+            <div class="tech-stack-grid">
+                <div class="tech-category glass-effect">
+                    <h4>🌐 Frontend Core</h4>
+                    <div class="tech-item">
+                        <span>HTML5 Semántico</span>
+                        <span class="tech-badge">Estructura</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>CSS3 Grid & Flexbox</span>
+                        <span class="tech-badge">Layout</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>JavaScript Vanilla</span>
+                        <span class="tech-badge">Interacción</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>CSS Variables</span>
+                        <span class="tech-badge">Theming</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category glass-effect">
+                    <h4>🎨 Diseño & UX</h4>
+                    <div class="tech-item">
+                        <span>Responsive Design</span>
+                        <span class="tech-badge">Mobile First</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>CSS Animations</span>
+                        <span class="tech-badge">Smooth</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>Gradientes CSS</span>
+                        <span class="tech-badge">Modern</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>SVG Placeholders</span>
+                        <span class="tech-badge">Optimized</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category glass-effect">
+                    <h4>⚡ Performance</h4>
+                    <div class="tech-item">
+                        <span>CSS Minification</span>
+                        <span class="tech-badge">Size</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>Lazy Loading</span>
+                        <span class="tech-badge">Speed</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>Critical CSS</span>
+                        <span class="tech-badge">FCP</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>Optimized Images</span>
+                        <span class="tech-badge">WebP</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category glass-effect">
+                    <h4>🔍 SEO & Analytics</h4>
+                    <div class="tech-item">
+                        <span>Meta Tags</span>
+                        <span class="tech-badge">SEO</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>Structured Data</span>
+                        <span class="tech-badge">Schema</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>Local Business</span>
+                        <span class="tech-badge">Maps</span>
+                    </div>
+                    <div class="tech-item">
+                        <span>Performance Metrics</span>
+                        <span class="tech-badge">Core Vitals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo">
+        <div class="container">
+            <h2 class="section-title neon-text">Demo y Capturas</h2>
+            <div class="demo-grid">
+                <div class="demo-card glass-effect">
+                    <div class="demo-image">
+                        <svg width="100%" height="100%" viewBox="0 0 400 300">
+                            <rect fill="#1e3c72" width="400" height="80"/>
+                            <rect fill="#2a5298" x="0" y="80" width="400" height="220"/>
+                            <text x="200" y="50" fill="white" text-anchor="middle" font-size="16">EAD Oleohidráulica</text>
+                            <text x="200" y="150" fill="white" text-anchor="middle" font-size="24">Hero Section</text>
+                            <text x="200" y="180" fill="white" text-anchor="middle" font-size="14">25 años de experiencia</text>
+                            <rect fill="#61dafb" x="150" y="200" width="100" height="30" rx="15"/>
+                            <text x="200" y="220" fill="#0d1117" text-anchor="middle" font-size="12">CTA Button</text>
+                        </svg>
+                    </div>
+                    <div class="demo-content">
+                        <h4>Header & Hero Section</h4>
+                        <p>Diseño impactante con gradientes profesionales, navegación fija y call-to-action prominente.</p>
+                        <ul class="demo-features">
+                            <li>Gradiente corporativo azul</li>
+                            <li>Navegación sticky responsive</li>
+                            <li>CTA optimizado para conversión</li>
+                            <li>Mensaje de valor claro</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="demo-card glass-effect">
+                    <div class="demo-image">
+                        <svg width="100%" height="100%" viewBox="0 0 400 300">
+                            <rect fill="#0d1117" width="400" height="300"/>
+                            <rect fill="rgba(255,255,255,0.03)" x="20" y="40" width="110" height="120" rx="10" style="filter: drop-shadow(0 5px 15px rgba(97,218,251,0.2))"/>
+                            <rect fill="rgba(255,255,255,0.03)" x="145" y="40" width="110" height="120" rx="10" style="filter: drop-shadow(0 5px 15px rgba(97,218,251,0.2))"/>
+                            <rect fill="rgba(255,255,255,0.03)" x="270" y="40" width="110" height="120" rx="10" style="filter: drop-shadow(0 5px 15px rgba(97,218,251,0.2))"/>
+                            <text x="200" y="25" fill="#61dafb" text-anchor="middle" font-size="16">Servicios</text>
+                            <text x="75" y="90" fill="#e2e8f0" text-anchor="middle" font-size="10">Grúas</text>
+                            <text x="75" y="105" fill="#e2e8f0" text-anchor="middle" font-size="10">Hidráulicas</text>
+                            <text x="200" y="90" fill="#e2e8f0" text-anchor="middle" font-size="10">Cilindros</text>
+                            <text x="325" y="90" fill="#e2e8f0" text-anchor="middle" font-size="10">Hidroelevadores</text>
+                        </svg>
+                    </div>
+                    <div class="demo-content">
+                        <h4>Sección de Servicios</h4>
+                        <p>Grid responsive con cards que muestran los servicios especializados del taller.</p>
+                        <ul class="demo-features">
+                            <li>6 servicios principales destacados</li>
+                            <li>Cards con efectos glass</li>
+                            <li>Iconografía industrial</li>
+                            <li>Descripciones técnicas claras</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="demo-card glass-effect">
+                    <div class="demo-image">
+                        <svg width="100%" height="100%" viewBox="0 0 400 300">
+                            <rect fill="#0d1117" width="400" height="300"/>
+                            <rect fill="rgba(255,255,255,0.03)" x="220" y="40" width="160" height="120" rx="10"/>
+                            <text x="50" y="70" fill="#61dafb" font-size="16">Sobre Nosotros</text>
+                            <text x="50" y="95" fill="#e2e8f0" font-size="11">25 años de experiencia</text>
+                            <text x="50" y="110" fill="#e2e8f0" font-size="11">Empresa familiar</text>
+                            <text x="50" y="125" fill="#e2e8f0" font-size="11">Colonia Barón, La Pampa</text>
+                            <rect fill="rgba(255,255,255,0.03)" x="50" y="180" width="90" height="60" rx="10"/>
+                            <rect fill="rgba(255,255,255,0.03)" x="155" y="180" width="90" height="60" rx="10"/>
+                            <rect fill="rgba(255,255,255,0.03)" x="260" y="180" width="90" height="60" rx="10"/>
+                            <text x="95" y="205" fill="#61dafb" text-anchor="middle" font-size="20">25</text>
+                            <text x="95" y="225" fill="#e2e8f0" text-anchor="middle" font-size="10">Años</text>
+                            <text x="200" y="205" fill="#61dafb" text-anchor="middle" font-size="20">500+</text>
+                            <text x="200" y="225" fill="#e2e8f0" text-anchor="middle" font-size="10">Equipos</text>
+                            <text x="305" y="205" fill="#61dafb" text-anchor="middle" font-size="20">100%</text>
+                            <text x="305" y="225" fill="#e2e8f0" text-anchor="middle" font-size="10">Calidad</text>
+                        </svg>
+                    </div>
+                    <div class="demo-content">
+                        <h4>Sobre Nosotros & Estadísticas</h4>
+                        <p>Sección que genera confianza con estadísticas clave y historia de la empresa.</p>
+                        <ul class="demo-features">
+                            <li>Historia familiar de 25 años</li>
+                            <li>Ubicación geográfica destacada</li>
+                            <li>Métricas de confianza</li>
+                            <li>Efectos glass modernos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="demo-card glass-effect">
+                    <div class="demo-image">
+                        <svg width="100%" height="100%" viewBox="0 0 400 300">
+                            <rect fill="#0d1117" width="400" height="300"/>
+                            <text x="200" y="30" fill="#61dafb" text-anchor="middle" font-size="16">Contacto</text>
+                            <rect fill="rgba(255,255,255,0.03)" x="50" y="50" width="140" height="200" rx="10"/>
+                            <rect fill="rgba(255,255,255,0.03)" x="210" y="50" width="140" height="200" rx="10"/>
+                            <text x="120" y="80" fill="#e2e8f0" text-anchor="middle" font-size="12">Información</text>
+                            <text x="280" y="80" fill="#e2e8f0" text-anchor="middle" font-size="12">Formulario</text>
+                            <text x="70" y="110" fill="#e2e8f0" font-size="10">📍 Colonia Barón</text>
+                            <text x="70" y="130" fill="#e2e8f0" font-size="10">📞 +54 2954 XXX</text>
+                            <text x="70" y="150" fill="#e2e8f0" font-size="10">✉️ info@ead.com</text>
+                            <rect fill="rgba(255,255,255,0.1)" x="220" y="100" width="120" height="15" rx="5"/>
+                            <rect fill="rgba(255,255,255,0.1)" x="220" y="125" width="120" height="15" rx="5"/>
+                            <rect fill="rgba(255,255,255,0.1)" x="220" y="150" width="120" height="40" rx="5"/>
+                            <rect fill="#61dafb" x="220" y="200" width="120" height="25" rx="5"/>
+                        </svg>
+                    </div>
+                    <div class="demo-content">
+                        <h4>Sección de Contacto</h4>
+                        <p>Formulario optimizado para conversión con información de contacto clara.</p>
+                        <ul class="demo-features">
+                            <li>Formulario con validación neon</li>
+                            <li>Información de contacto visible</li>
+                            <li>Horarios de atención</li>
+                            <li>CTA con efecto glow</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <div class="container">
+            <h2 class="section-title neon-text">Proceso de Desarrollo</h2>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <div class="process-content glass-effect">
+                        <h4>Investigación y Análisis</h4>
+                        <p>Análisis profundo del negocio, competencia local y necesidades específicas del sector oleohidráulico. Investigación de palabras clave locales y comportamiento del público objetivo.</p>
+                        <ul>
+                            <li>• Análisis de competencia regional</li>
+                            <li>• Research de keywords técnicas</li>
+                            <li>• Definición de buyer personas</li>
+                            <li>• Arquitectura de información</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <div class="process-content glass-effect">
+                        <h4>Diseño UI/UX</h4>
+                        <p>Creación de wireframes y diseño visual enfocado en conversión. Paleta de colores industrial, tipografía legible y jerarquía visual clara para destacar servicios y experiencia.</p>
+                        <ul>
+                            <li>• Wireframes de baja fidelidad</li>
+                            <li>• Paleta cyber/industrial</li>
+                            <li>• Diseño mobile-first</li>
+                            <li>• Prototipo interactivo</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <div class="process-content glass-effect">
+                        <h4>Desarrollo Frontend</h4>
+                        <p>Implementación con HTML5 semántico, CSS3 moderno y JavaScript vanilla. Enfoque en performance, accesibilidad y SEO. Uso de CSS Grid y Flexbox para layouts responsive.</p>
+                        <ul>
+                            <li>• HTML5 semántico</li>
+                            <li>• CSS3 Grid & Flexbox</li>
+                            <li>• JavaScript para interacciones</li>
+                            <li>• Optimización de imágenes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <div class="process-content glass-effect">
+                        <h4>Optimización y Testing</h4>
+                        <p>Testing exhaustivo en múltiples dispositivos, optimización de Core Web Vitals, implementación de Analytics y configuración de SEO local para La Pampa.</p>
+                        <ul>
+                            <li>• Testing cross-browser</li>
+                            <li>• Optimización Core Web Vitals</li>
+                            <li>• SEO local La Pampa</li>
+                            <li>• Google Analytics & Search Console</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="code">
+        <div class="container">
+            <h2 class="section-title neon-text">Ejemplos de Código</h2>
+            
+            <div class="code-showcase">
+                <div class="code-header">
+                    <div class="code-dot red"></div>
+                    <div class="code-dot yellow"></div>
+                    <div class="code-dot green"></div>
+                    <div class="code-title">CSS - Efectos Neon y Glass</div>
+                </div>
+                <div class="code-block">
+<span class="code-comment">/* Glass effect con backdrop-filter */</span>
+<span class="code-keyword">.glass-effect</span> {
+    <span class="code-keyword">background</span>: <span class="code-string">var(--glass-bg)</span>;
+    <span class="code-keyword">backdrop-filter</span>: <span class="code-string">blur(10px)</span>;
+    <span class="code-keyword">border</span>: <span class="code-string">1px solid var(--glass-border)</span>;
+    <span class="code-keyword">border-radius</span>: <span class="code-string">15px</span>;
+}
+
+<span class="code-comment">/* Botones con efecto neon */</span>
+<span class="code-keyword">.neon-button</span> {
+    <span class="code-keyword">border</span>: <span class="code-string">2px solid var(--neon-color)</span>;
+    <span class="code-keyword">color</span>: <span class="code-string">var(--neon-color)</span>;
+    <span class="code-keyword">box-shadow</span>: <span class="code-string">var(--neon-shadow)</span>;
+    <span class="code-keyword">transition</span>: <span class="code-string">all 0.3s</span>;
+}
+
+<span class="code-keyword">.neon-button:hover</span> {
+    <span class="code-keyword">background</span>: <span class="code-string">var(--neon-color)</span>;
+    <span class="code-keyword">box-shadow</span>: <span class="code-string">0 0 20px var(--neon-color)</span>;
+}
+                </div>
+            </div>
+            
+            <div class="code-showcase">
+                <div class="code-header">
+                    <div class="code-dot red"></div>
+                    <div class="code-dot yellow"></div>
+                    <div class="code-dot green"></div>
+                    <div class="code-title">JavaScript - Cursor Personalizado y Efectos</div>
+                </div>
+                <div class="code-block">
+<span class="code-comment">// Cursor personalizado con efectos neon</span>
+<span class="code-keyword">class</span> <span class="code-string">CustomCursor</span> {
+    <span class="code-keyword">init</span>() {
+        <span class="code-keyword">this.cursor</span> = <span class="code-keyword">document</span>.<span class="code-keyword">createElement</span>(<span class="code-string">'div'</span>);
+        <span class="code-keyword">this.cursor</span>.<span class="code-keyword">className</span> = <span class="code-string">'cursor'</span>;
+        <span class="code-keyword">document.body</span>.<span class="code-keyword">appendChild</span>(<span class="code-keyword">this.cursor</span>);
+        
+        <span class="code-keyword">document</span>.<span class="code-keyword">addEventListener</span>(<span class="code-string">'mousemove'</span>, (<span class="code-keyword">e</span>) => {
+            <span class="code-keyword">requestAnimationFrame</span>(() => {
+                <span class="code-keyword">this.cursor</span>.<span class="code-keyword">style</span>.<span class="code-keyword">left</span> = <span class="code-keyword">e.clientX</span> + <span class="code-string">'px'</span>;
+                <span class="code-keyword">this.cursor</span>.<span class="code-keyword">style</span>.<span class="code-keyword">top</span> = <span class="code-keyword">e.clientY</span> + <span class="code-string">'px'</span>;
+            });
+        });
+    }
+}
+                </div>
+            </div>
+            
+            <div class="code-showcase">
+                <div class="code-header">
+                    <div class="code-dot red"></div>
+                    <div class="code-dot yellow"></div>
+                    <div class="code-dot green"></div>
+                    <div class="code-title">CSS - Variables y Responsive Grid</div>
+                </div>
+                <div class="code-block">
+<span class="code-comment">/* Variables CSS para theming consistente */</span>
+<span class="code-keyword">:root</span> {
+    <span class="code-keyword">--primary-color</span>: <span class="code-string">#61dafb</span>;
+    <span class="code-keyword">--neon-color</span>: <span class="code-string">var(--primary-color)</span>;
+    <span class="code-keyword">--neon-shadow</span>: <span class="code-string">0 0 5px rgba(97, 218, 251, 0.3)</span>;
+    <span class="code-keyword">--glass-bg</span>: <span class="code-string">rgba(255, 255, 255, 0.03)</span>;
+}
+
+<span class="code-comment">/* Grid responsive moderno */</span>
+<span class="code-keyword">.tech-stack-grid</span> {
+    <span class="code-keyword">display</span>: <span class="code-string">grid</span>;
+    <span class="code-keyword">grid-template-columns</span>: <span class="code-string">repeat(auto-fit, minmax(300px, 1fr))</span>;
+    <span class="code-keyword">gap</span>: <span class="code-string">2rem</span>;
+}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results">
+        <div class="container">
+            <h2 class="section-title neon-text">Resultados y Métricas</h2>
+            <div class="metrics-grid">
+                <div class="metric-card glass-effect">
+                    <div class="metric-number">95</div>
+                    <div class="metric-label">Performance Score</div>
+                    <div class="metric-improvement">+40% vs. competencia</div>
+                </div>
+                <div class="metric-card glass-effect">
+                    <div class="metric-number">1.2s</div>
+                    <div class="metric-label">Tiempo de Carga</div>
+                    <div class="metric-improvement">Óptimo para rural</div>
+                </div>
+                <div class="metric-card glass-effect">
+                    <div class="metric-number">100%</div>
+                    <div class="metric-label">Responsive</div>
+                    <div class="metric-improvement">Todos los dispositivos</div>
+                </div>
+                <div class="metric-card glass-effect">
+                    <div class="metric-number">85%</div>
+                    <div class="metric-label">Conversión</div>
+                    <div class="metric-improvement">Formulario optimizado</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem;">
+                <h3>Impacto Comercial</h3>
+                <div class="overview-grid" style="margin-top: 2rem;">
+                    <div>
+                        <ul class="objectives-list">
+                            <li><strong>Posicionamiento Local:</strong> Primera página en "oleohidráulica La Pampa"</li>
+                            <li><strong>Leads Cualificados:</strong> 300% más consultas vs. período anterior</li>
+                            <li><strong>Credibilidad:</strong> Imagen profesional acorde a 25 años de experiencia</li>
+                            <li><strong>Alcance Regional:</strong> Expansión a municipios vecinos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Tecnologías Destacadas</h4>
+                        <ul class="demo-features">
+                            <li>CSS Grid para layouts complejos</li>
+                            <li>Custom Properties para theming</li>
+                            <li>Intersection Observer API</li>
+                            <li>Performance optimizations</li>
+                            <li>SEO local structured data</li>
+                            <li>Accessibility WCAG 2.1</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Desarrollador</h4>
+                    <p>Agustín Deux</p>
+                    <p>Full Stack Developer</p>
+                    <p>Especialista en desarrollo web y Python</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Proyecto</h4>
+                    <p>Sitio Web EAD Oleohidráulica</p>
+                    <p>Landing page corporativa</p>
+                    <p>Optimizada para conversión</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tecnologías</h4>
+                    <p>HTML5 • CSS3 • JavaScript</p>
+                    <p>Responsive Design</p>
+                    <p>SEO Optimization</p>
+                </div>
+            </div>
+            <hr style="margin: 2rem 0; border: 1px solid var(--glass-border);">
+            <p>&copy; 2024 Agustín Deux - Portfolio de Desarrollo Web. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================================
+        // CURSOR PERSONALIZADO
+        // ============================================================================
+        
+        class CustomCursor {
+            constructor() {
+                this.cursor = null;
+                this.isActive = false;
+            }
+            
+            init() {
+                // No inicializar en dispositivos móviles
+                if (window.innerWidth <= 768) return;
+                
+                if (this.cursor) return;
+                
+                this.cursor = document.createElement('div');
+                this.cursor.className = 'cursor';
+                document.body.appendChild(this.cursor);
+                
+                this.bindEvents();
+                this.isActive = true;
+            }
+            
+            bindEvents() {
+                document.addEventListener('mousemove', (e) => {
+                    if (!this.isActive) return;
+                    
+                    requestAnimationFrame(() => {
+                        this.cursor.style.left = (e.clientX - 10) + 'px';
+                        this.cursor.style.top = (e.clientY - 10) + 'px';
+                    });
+                });
+                
+                // Actualizar variables CSS para efectos de seguimiento
+                document.addEventListener('mousemove', (e) => {
+                    document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+                    document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+                });
+                
+                const interactiveElements = 'a, button, .tech-badge, .demo-card, input, textarea, .logo a';
+                document.querySelectorAll(interactiveElements).forEach(elem => {
+                    elem.addEventListener('mouseenter', () => {
+                        this.cursor.style.transform = 'scale(1.5)';
+                        this.cursor.style.background = 'rgba(97, 218, 251, 0.6)';
+                    });
+                    
+                    elem.addEventListener('mouseleave', () => {
+                        this.cursor.style.transform = 'scale(1)';
+                        this.cursor.style.background = 'rgba(97, 218, 251, 0.4)';
+                    });
+                });
+                
+                // Ocultar cursor al salir de la ventana
+                document.addEventListener('mouseleave', () => {
+                    this.cursor.style.opacity = '0';
+                });
+                
+                document.addEventListener('mouseenter', () => {
+                    this.cursor.style.opacity = '1';
+                });
+            }
+        }
+        
+        // ============================================================================
+        // NAVEGACIÓN Y ANIMACIONES
+        // ============================================================================
+        
+        // Navigation tabs functionality
+        document.querySelectorAll('.nav-tabs a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-tabs a').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Smooth scroll to section
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Update active nav on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-tabs a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.tech-category, .demo-card, .metric-card, .process-content').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // ============================================================================
+        // MENÚ HAMBURGER RESPONSIVE
+        // ============================================================================
+        
+        function initHamburgerMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('#nav-links');
+            
+            if (!hamburger || !navLinks) return;
+            
+            hamburger.addEventListener('click', (e) => {
+                console.log('Hamburger clicked!', e);
+                const isActive = hamburger.classList.contains('active');
+                
+                if (isActive) {
+                    // Cerrar menú
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                } else {
+                    // Abrir menú
+                    hamburger.classList.add('active');
+                    navLinks.classList.add('active');
+                    hamburger.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            // Cerrar menú al hacer click en un enlace
+            const navLinksItems = navLinks.querySelectorAll('a');
+            navLinksItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Cerrar menú al hacer click fuera de él
+            document.addEventListener('click', (e) => {
+                const isClickInsideNav = navLinks.contains(e.target) || hamburger.contains(e.target);
+                
+                if (!isClickInsideNav && navLinks.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Cerrar menú al redimensionar la ventana (para evitar problemas responsive)
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+        
+        // ============================================================================
+        // INICIALIZACIÓN
+        // ============================================================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = new CustomCursor();
+            cursor.init();
+            initHamburgerMenu();
+            
+            // Debug para verificar clicks en logo
+            const logoLink = document.querySelector('.logo a');
+            if (logoLink) {
+                logoLink.addEventListener('click', function(e) {
+                    console.log('Logo clicked!', e);
+                    // Asegurar que el click funcione
+                    window.location.href = this.href;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

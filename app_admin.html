@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Administración EAD - Aplicación de escritorio desarrollada en Python para gestión integral de talleres oleohidráulicos">
+    <meta name="keywords" content="Python, Tkinter, SQLite, Peewee, MVC, aplicación de escritorio, gestión de taller">
+    <meta name="author" content="Agustín Deux">
+    <meta name="theme-color" content="#61dafb">
+    <title>Sistema de Administración EAD | Aplicación de Gestión Integral</title>
+    
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variables CSS del sistema neon */
+        :root {
+            /* Colores */
+            --primary-color: #61dafb;
+            --secondary-color: #764abc;
+            --text-color: #e2e8f0;
+            --bg-color: #0d1117;
+            --code-bg: #1f2937;
+            --accent-color: #f97316;
+            --light-bg: #f3f4f6;
+            
+            /* Efectos */
+            --neon-color: var(--primary-color);
+            --neon-shadow: 0 0 5px rgba(97, 218, 251, 0.3);
+            --retro-shadow: 0 0 10px rgba(97, 218, 251, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Layout */
+            --spacing: clamp(1rem, 2vw, 2rem);
+            --section-padding: clamp(4rem, 6vw, 6rem) clamp(1rem, 2vw, 2rem);
+            --container-width: min(1200px, 90vw);
+            --header-height: clamp(60px, 10vh, 80px);
+            
+            --font-heading: 'Syncopate', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --border-radius: 8px;
+            --focus-outline: 3px solid var(--neon-color);
+            --grid-color: rgba(97, 218, 251, 0.1);
+            --scanline-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        /* Reset CSS optimizado */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body con efectos cyber */
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(13,17,23,0.95) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Efecto de seguimiento del mouse */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(97, 218, 251, 0.15) 0%,
+                rgba(0, 0, 0, 0) 50%),
+                linear-gradient(45deg, 
+                    rgba(97, 218, 251, 0.05) 0%,
+                    transparent 20%,
+                    transparent 80%,
+                    rgba(97, 218, 251, 0.05) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Scanlines animadas */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    var(--scanline-color) 0px,
+                    var(--scanline-color) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Header cyber style */
+        header {
+            background: linear-gradient(135deg, var(--bg-color) 0%, #1e2a3a 100%);
+            color: var(--text-color);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--neon-color);
+            box-shadow: 0 0 30px rgba(97, 218, 251, 0.2);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, var(--grid-color) 50%, transparent 51%);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% { 
+                text-shadow: 0.05em 0 0 var(--neon-color),
+                           -0.05em -0.05em 0 #ff0080,
+                           -0.05em 0.05em 0 #00ff00;
+            }
+            15% { 
+                text-shadow: -0.05em -0.025em 0 var(--neon-color),
+                           0.025em 0.025em 0 #ff0080,
+                           -0.05em -0.05em 0 #00ff00;
+            }
+        }
+        
+        .header-content .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+        
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .tech-badge {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--glass-border);
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            background: var(--neon-color);
+            color: var(--bg-color);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--neon-color);
+        }
+        
+        /* Navegación cyber */
+        .nav-tabs {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 0;
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo-nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo a {
+            text-decoration: none;
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+            transition: all 0.3s ease;
+            cursor: none !important;
+            display: inline-block;
+            position: relative;
+            z-index: 1002;
+            pointer-events: auto;
+        }
+        
+        .logo a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 15px var(--neon-color);
+        }
+        
+        .nav-tabs ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-tabs li {
+            margin: 0;
+        }
+        
+        .nav-tabs a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-tabs a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .nav-tabs a:hover::before,
+        .nav-tabs a.active::before {
+            left: 100%;
+        }
+        
+        .nav-tabs a:hover,
+        .nav-tabs a.active {
+            background: var(--glass-bg);
+            border-bottom-color: var(--neon-color);
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: none !important;
+            padding: 0.5rem;
+            z-index: 1001;
+            pointer-events: auto;
+        }
+        
+        .hamburger .line {
+            width: 25px;
+            height: 2px;
+            background: var(--neon-color);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(97, 218, 251, 0.3);
+        }
+        
+        .hamburger.active .line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .hamburger.active .line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        /* Secciones con glass effect */
+        section {
+            padding: var(--section-padding);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, var(--grid-color) 50%, transparent 51%);
+            background-size: 30px 30px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--neon-color);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--neon-color);
+            box-shadow: 0 0 10px var(--neon-color);
+            border-radius: 2px;
+        }
+        
+        /* Glass cards */
+        .glass-effect {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+        }
+        
+        /* Overview grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .overview-content h3 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .overview-content p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        
+        .features-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-color);
+        }
+        
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .app-screenshot {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+        
+        .app-screenshot:hover {
+            border-color: var(--neon-color);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .app-screenshot img {
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .app-screenshot h4 {
+            color: var(--neon-color);
+            margin-top: 1rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        /* Screenshots Grid */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .screenshot-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screenshot-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .screenshot-card:hover::before {
+            left: 100%;
+        }
+        
+        .screenshot-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-color);
+            box-shadow: 0 0 30px rgba(97, 218, 251, 0.2);
+        }
+        
+        .screenshot-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid var(--glass-border);
+            margin-bottom: 1rem;
+        }
+        
+        .screenshot-card h4 {
+            color: var(--neon-color);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .screenshot-card p {
+            color: var(--text-color);
+        }
+        
+        /* Manual Steps */
+        .manual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .manual-step {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid var(--neon-color);
+            padding: 1.5rem;
+            border-radius: 0 15px 15px 0;
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--neon-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .manual-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .manual-step:hover::before {
+            left: 100%;
+        }
+        
+        .manual-step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--neon-color), var(--secondary-color));
+            color: var(--bg-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 15px rgba(97, 218, 251, 0.3);
+        }
+        
+        .manual-step h4 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .manual-step p {
+            color: var(--text-color);
+        }
+        
+        /* Architecture */
+        .architecture-diagram {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .architecture-diagram h3 {
+            color: var(--neon-color);
+            text-shadow: var(--neon-shadow);
+            margin-bottom: 1rem;
+        }
+        
+        .architecture-diagram p {
+            color: var(--text-color);
+        }
+        
+        .architecture-layers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .layer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--neon-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .layer:hover::before {
+            left: 100%;
+        }
+        
+        .layer:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .layer h4 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .layer ul {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+        
+        .layer li {
+            padding: 0.25rem 0;
+            color: var(--text-color);
+        }
+        
+        /* Technologies */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tech-category {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(97, 218, 251, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .tech-category:hover::before {
+            left: 100%;
+        }
+        
+        .tech-category:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-color);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .tech-category h4 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .tech-category ul {
+            list-style: none;
+        }
+        
+        .tech-category li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
+        }
+        
+        .tech-category li:last-child {
+            border-bottom: none;
+        }
+        
+        .tech-version {
+            background: var(--neon-color);
+            color: var(--bg-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+        }
+        
+        /* Roadmap */
+        .roadmap-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--neon-color), var(--secondary-color));
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--neon-color);
+        }
+        
+        .roadmap-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .roadmap-item:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .roadmap-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .roadmap-content {
+            flex: 1;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            margin: 0 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .roadmap-content:hover {
+            border-color: var(--neon-color);
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+        }
+        
+        .roadmap-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            transform: translateY(-50%);
+        }
+        
+        .roadmap-item:nth-child(odd) .roadmap-content::before {
+            right: -30px;
+            border-left-color: var(--glass-border);
+        }
+        
+        .roadmap-item:nth-child(even) .roadmap-content::before {
+            left: -30px;
+            border-right-color: var(--glass-border);
+        }
+        
+        .roadmap-badge {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--neon-color), var(--secondary-color));
+            color: var(--bg-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(97, 218, 251, 0.5);
+            border: 2px solid var(--bg-color);
+        }
+        
+        .roadmap-content h4 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .roadmap-content p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        
+        .roadmap-content ul {
+            list-style: none;
+        }
+        
+        .roadmap-content li {
+            padding: 0.25rem 0;
+            color: var(--text-color);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .roadmap-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--neon-color);
+            font-weight: bold;
+        }
+        
+        .priority-high {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .priority-medium {
+            border-left: 4px solid #f39c12;
+        }
+        
+        .priority-low {
+            border-left: 4px solid #27ae60;
+        }
+        
+        /* Cursor personalizado */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(97, 218, 251, 0.4);
+            border: 2px solid var(--neon-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+            box-shadow: 0 0 10px var(--neon-color);
+        }
+        
+        /* Ocultar cursor original completamente */
+        * {
+            cursor: none !important;
+        }
+        
+        /* Forzar cursor none en todos los elementos interactivos */
+        a, button, input, textarea, select, .logo, .logo a, .hamburger {
+            cursor: none !important;
+        }
+        
+        /* Asegurar que no aparezca el pointer en hover */
+        a:hover, button:hover, .logo a:hover, .hamburger:hover {
+            cursor: none !important;
+        }
+        
+        /* Restaurar cursor en móviles */
+        @media (max-width: 768px) {
+            * {
+                cursor: auto !important;
+            }
+            
+            .cursor {
+                display: none !important;
+            }
+            
+            body::after {
+                display: none;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            color: var(--text-color);
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--neon-color);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-shadow);
+        }
+        
+        .footer-section p,
+        .footer-section li {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: var(--text-color);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            padding: 0.25rem 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-nav-container {
+                padding: 1rem;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-tabs ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                border-top: none;
+                flex-direction: column;
+                width: 100%;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            
+            .nav-tabs ul.active {
+                display: flex;
+                animation: slideDown 0.3s ease forwards;
+            }
+            
+            .nav-tabs ul a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--glass-border);
+                border-left: none;
+                text-align: center;
+            }
+            
+            .nav-tabs ul a:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-tabs ul a:hover,
+            .nav-tabs ul a.active {
+                border-bottom-color: var(--neon-color);
+                background: rgba(97, 218, 251, 0.1);
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .overview-grid,
+            .architecture-layers {
+                grid-template-columns: 1fr;
+            }
+            
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap-timeline::before {
+                left: 20px;
+            }
+            
+            .roadmap-item {
+                flex-direction: column !important;
+                margin-left: 40px;
+            }
+            
+            .roadmap-content {
+                margin: 0;
+                margin-top: 1rem;
+            }
+            
+            .roadmap-content::before {
+                display: none;
+            }
+            
+            .roadmap-badge {
+                left: -20px;
+                transform: translateY(-50%);
+            }
+            
+            .header-content h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="glitch">Sistema de Administración EAD</h1>
+                <p class="subtitle">Aplicación de escritorio para gestión integral de talleres oleohidráulicos</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python 3.11</span>
+                    <span class="tech-badge">Tkinter GUI</span>
+                    <span class="tech-badge">SQLite3</span>
+                    <span class="tech-badge">Peewee ORM</span>
+                    <span class="tech-badge">MVC Pattern</span>
+                    <span class="tech-badge">Matplotlib</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-tabs">
+        <div class="container">
+            <div class="logo-nav-container">
+                <div class="logo" aria-label="Logo">
+                    <a href="index.html">{ A-Dev }</a>
+                </div>
+                <ul id="nav-links">
+                    <li><a href="#overview" class="active">Resumen</a></li>
+                    <li><a href="#screenshots">Capturas</a></li>
+                    <li><a href="#manual">Guía de Uso</a></li>
+                    <li><a href="#architecture">Arquitectura</a></li>
+                    <li><a href="#technologies">Tecnologías</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                </ul>
+                <button class="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
+                    <span class="line" aria-hidden="true"></span>
+                    <span class="line" aria-hidden="true"></span>
+                    <span class="line" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="overview">
+        <div class="container">
+            <h2 class="section-title">Resumen del Proyecto</h2>
+            <div class="overview-grid">
+                <div class="overview-content">
+                    <h3>Sistema Integral de Gestión para Talleres</h3>
+                    <p>El Sistema de Administración EAD es una aplicación de escritorio desarrollada específicamente para optimizar la gestión operativa del taller EAD Oleohidráulica. Implementa un diseño robusto basado en el patrón MVC y utiliza tecnologías modernas de Python.</p>
+                    
+                    <h3>Funcionalidades Principales</h3>
+                    <ul class="features-list">
+                        <li>Gestión completa de inventario y stock en tiempo real</li>
+                        <li>Administración de clientes y proveedores</li>
+                        <li>Seguimiento detallado de trabajos y órdenes de servicio</li>
+                        <li>Generación automática de presupuestos personalizados</li>
+                        <li>Sistema de reportes con exportación a Excel/PDF</li>
+                        <li>Dashboard con estadísticas y gráficos interactivos</li>
+                        <li>Control de usuarios y permisos</li>
+                        <li>Sistema de respaldos automáticos</li>
+                    </ul>
+                    
+                    <h3>Beneficios Operativos</h3>
+                    <p>La aplicación ha permitido reducir significativamente los tiempos de generación de presupuestos, mejorar el control de stock y proporcionar insights valiosos sobre el rendimiento del negocio a través de reportes automatizados y visualizaciones de datos.</p>
+                </div>
+                <div class="app-screenshot glass-effect">
+                    <svg width="100%" height="300" viewBox="0 0 400 300">
+                        <rect fill="#0d1117" width="400" height="300"/>
+                        <rect fill="rgba(97,218,251,0.1)" x="0" y="0" width="400" height="30"/>
+                        <rect fill="rgba(255,255,255,0.03)" x="10" y="40" width="120" height="250"/>
+                        <rect fill="rgba(255,255,255,0.03)" x="140" y="40" width="250" height="180"/>
+                        <rect fill="rgba(97,218,251,0.2)" x="140" y="230" width="250" height="60"/>
+                        <text x="200" y="130" fill="#61dafb" text-anchor="middle" font-size="14">Dashboard Principal</text>
+                        <text x="200" y="150" fill="#e2e8f0" text-anchor="middle" font-size="12">Sistema EAD</text>
+                        <text x="70" y="80" fill="#e2e8f0" text-anchor="middle" font-size="10">Menú</text>
+                        <text x="70" y="100" fill="#e2e8f0" text-anchor="middle" font-size="10">Principal</text>
+                        <circle cx="20" cy="15" r="5" fill="#ff5f56"/>
+                        <circle cx="35" cy="15" r="5" fill="#ffbd2e"/>
+                        <circle cx="50" cy="15" r="5" fill="#27ca3f"/>
+                    </svg>
+                    <h4>Dashboard Principal</h4>
+                    <p>Pantalla principal con acceso rápido a todas las funcionalidades y estadísticas en tiempo real.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots">
+        <div class="container">
+            <h2 class="section-title">Capturas del Sistema</h2>
+            <div class="screenshots-grid">
+                <div class="screenshot-card glass-effect">
+                    <svg width="100%" height="250" viewBox="0 0 400 250">
+                        <rect fill="#0d1117" width="400" height="250"/>
+                        <rect fill="rgba(97,218,251,0.1)" x="0" y="0" width="400" height="25"/>
+                        <rect fill="rgba(255,255,255,0.03)" x="20" y="40" width="360" height="180"/>
+                        <rect fill="rgba(255,255,255,0.05)" x="30" y="50" width="340" height="30"/>
+                        <rect fill="#61dafb" x="320" y="55" width="40" height="20"/>
+                        <text x="200" y="120" fill="#61dafb" text-anchor="middle" font-size="14">Gestión de Clientes</text>
+                        <text x="200" y="140" fill="#e2e8f0" text-anchor="middle" font-size="12">CRUD Completo</text>
+                        <text x="50" y="70" fill="#e2e8f0" font-size="10">Cliente:</text>
+                        <text x="50" y="85" fill="#e2e8f0" font-size="10">Teléfono:</text>
+                        <text x="50" y="100" fill="#e2e8f0" font-size="10">Email:</text>
+                    </svg>
+                    <h4>Gestión de Clientes</h4>
+                    <p>Interfaz para administrar información completa de clientes, historial de trabajos y datos de contacto.</p>
+                </div>
+                <div class="screenshot-card glass-effect">
+                    <svg width="100%" height="250" viewBox="0 0 400 250">
+                        <rect fill="#0d1117" width="400" height="250"/>
+                        <rect fill="rgba(97,218,251,0.1)" x="0" y="0" width="400" height="25"/>
+                        <rect fill="rgba(255,255,255,0.03)" x="20" y="40" width="360" height="180"/>
+                        <rect fill="rgba(39,174,96,0.3)" x="30" y="50" width="80" height="20"/>
+                        <rect fill="rgba(231,76,60,0.3)" x="120" y="50" width="80" height="20"/>
+                        <rect fill="rgba(243,156,18,0.3)" x="210" y="50" width="80" height="20"/>
+                        <text x="200" y="120" fill="#61dafb" text-anchor="middle" font-size="14">Control de Stock</text>
+                        <text x="200" y="140" fill="#e2e8f0" text-anchor="middle" font-size="12">Inventario en Tiempo Real</text>
+                        <text x="70" y="85" fill="#e2e8f0" font-size="9">Stock OK</text>
+                        <text x="160" y="85" fill="#e2e8f0" font-size="9">Stock Bajo</text>
+                        <text x="250" y="85" fill="#e2e8f0" font-size="9">Alerta</text>
+                    </svg>
+                    <h4>Control de Stock</h4>
+                    <p>Sistema de inventario con alertas de stock mínimo, categorización de productos y trazabilidad completa.</p>
+                </div>
+                <div class="screenshot-card glass-effect">
+                    <svg width="100%" height="250" viewBox="0 0 400 250">
+                        <rect fill="#0d1117" width="400" height="250"/>
+                        <rect fill="rgba(97,218,251,0.1)" x="0" y="0" width="400" height="25"/>
+                        <rect fill="rgba(255,255,255,0.03)" x="20" y="40" width="360" height="180"/>
+                        <rect fill="rgba(255,255,255,0.05)" x="30" y="50" width="150" height="100"/>
+                        <rect fill="rgba(255,255,255,0.05)" x="200" y="50" width="170" height="100"/>
+                        <text x="200" y="120" fill="#61dafb" text-anchor="middle" font-size="14">Órdenes de Trabajo</text>
+                        <text x="200" y="140" fill="#e2e8f0" text-anchor="middle" font-size="12">Seguimiento Completo</text>
+                        <text x="105" y="70" fill="#e2e8f0" text-anchor="middle" font-size="10">OT #001</text>
+                        <text x="105" y="85" fill="#e2e8f0" text-anchor="middle" font-size="10">Estado: En Proceso</text>
+                        <text x="285" y="70" fill="#e2e8f0" text-anchor="middle" font-size="10">Cliente: ABC SA</text>
+                        <text x="285" y="85" fill="#e2e8f0" text-anchor="middle" font-size="10">Fecha: 15/11/2024</text>
+                    </svg>
+                    <h4>Órdenes de Trabajo</h4>
+                    <p>Gestión completa del ciclo de vida de trabajos, desde la recepción hasta la entrega final.</p>
+                </div>
+                <div class="screenshot-card glass-effect">
+                    <svg width="100%" height="250" viewBox="0 0 400 250">
+                        <rect fill="#0d1117" width="400" height="250"/>
+                        <rect fill="rgba(97,218,251,0.1)" x="0" y="0" width="400" height="25"/>
+                        <rect fill="rgba(255,255,255,0.03)" x="20" y="40" width="360" height="180"/>
+                        <text x="50" y="70" fill="#61dafb" font-size="12">PRESUPUESTO #001</text>
+                        <text x="50" y="90" fill="#e2e8f0" font-size="10">Cliente: Cooperativa XYZ</text>
+                        <text x="50" y="105" fill="#e2e8f0" font-size="10">Fecha: 15/11/2024</text>
+                        <text x="50" y="125" fill="#e2e8f0" font-size="10">─────────────────────────</text>
+                        <text x="50" y="140" fill="#e2e8f0" font-size="10">• Reparación cilindro</text>
+                        <text x="50" y="155" fill="#e2e8f0" font-size="10">• Retenes y sellos</text>
+                        <text x="50" y="170" fill="#e2e8f0" font-size="10">• Mano de obra</text>
+                        <text x="50" y="190" fill="#61dafb" font-size="11">TOTAL: $125.000</text>
+                        <text x="200" y="120" fill="#61dafb" text-anchor="middle" font-size="14">Generación de Presupuestos</text>
+                        <text x="200" y="140" fill="#e2e8f0" text-anchor="middle" font-size="12">Automática y Personalizada</text>
+                    </svg>
+                    <h4>Generación de Presupuestos</h4>
+                    <p>Creación automática de presupuestos con plantillas personalizables y cálculos dinámicos.</p>
+                </div>
+                <div class="screenshot-card glass-effect">
+                    <svg width="100%" height="250" viewBox="0 0 400 250">
+                        <rect fill="#0d1117" width="400" height="250"/>
+                        <rect fill="rgba(97,218,251,0.1)" x="0" y="0" width="400" height="25"/>
+                        <circle cx="150" cy="120" r="50" fill="rgba(97,218,251,0.3)"/>
+                        <rect fill="rgba(39,174,96,0.3)" x="220" y="80" width="100" height="80"/>
+                        <text x="150" y="125" fill="#61dafb" text-anchor="middle" font-size="12">65%</text>
+                        <text x="270" y="125" fill="#e2e8f0" text-anchor="middle" font-size="10">Ventas</text>
+                        <text x="270" y="140" fill="#e2e8f0" text-anchor="middle" font-size="10">Mensuales</text>
+                        <text x="200" y="180" fill="#61dafb" text-anchor="middle" font-size="14">Reportes y Estadísticas</text>
+                        <text x="200" y="200" fill="#e2e8f0" text-anchor="middle" font-size="12">Gráficos con Matplotlib</text>
+                    </svg>
+                    <h4>Reportes y Estadísticas</h4>
+                    <p>Dashboard con gráficos interactivos, reportes exportables y análisis de tendencias del negocio.</p>
+                </div>
+                <div class="screenshot-card glass-effect">
+                    <svg width="100%" height="250" viewBox="0 0 400 250">
+                        <rect fill="#0d1117" width="400" height="250"/>
+                        <rect fill="rgba(97,218,251,0.1)" x="0" y="0" width="400" height="25"/>
+                        <rect fill="rgba(255,255,255,0.03)" x="20" y="40" width="360" height="180"/>
+                        <rect fill="rgba(255,255,255,0.05)" x="30" y="60" width="150" height="20"/>
+                        <rect fill="rgba(255,255,255,0.05)" x="30" y="90" width="200" height="20"/>
+                        <rect fill="rgba(255,255,255,0.05)" x="30" y="120" width="180" height="20"/>
+                        <text x="200" y="170" fill="#61dafb" text-anchor="middle" font-size="14">Gestión de Proveedores</text>
+                        <text x="200" y="190" fill="#e2e8f0" text-anchor="middle" font-size="12">Control de Compras</text>
+                        <text x="50" y="75" fill="#e2e8f0" font-size="10">Proveedor A</text>
+                        <text x="50" y="105" fill="#e2e8f0" font-size="10">Proveedor B - Última compra: 10/11</text>
+                        <text x="50" y="135" fill="#e2e8f0" font-size="10">Proveedor C - Pendiente OC #123</text>
+                    </svg>
+                    <h4>Gestión de Proveedores</h4>
+                    <p>Administración de proveedores, historial de compras y seguimiento de órdenes de compra.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="manual">
+        <div class="container">
+            <h2 class="section-title">Guía de Uso</h2>
+            <div class="manual-grid">
+                <div class="manual-step glass-effect">
+                    <div class="step-number">1</div>
+                    <h4>Inicio de Sesión</h4>
+                    <p>Acceda al sistema con sus credenciales. El sistema valida permisos y carga el perfil correspondiente con acceso a las funcionalidades autorizadas.</p>
+                </div>
+                <div class="manual-step glass-effect">
+                    <div class="step-number">2</div>
+                    <h4>Dashboard Principal</h4>
+                    <p>Visualice el resumen ejecutivo con estadísticas clave: trabajos pendientes, stock crítico, ingresos del mes y gráficos de tendencias.</p>
+                </div>
+                <div class="manual-step glass-effect">
+                    <div class="step-number">3</div>
+                    <h4>Gestión de Clientes</h4>
+                    <p>Registre nuevos clientes o edite información existente. Acceda al historial completo de trabajos y genere reportes personalizados por cliente.</p>
+                </div>
+                <div class="manual-step glass-effect">
+                    <div class="step-number">4</div>
+                    <h4>Control de Inventario</h4>
+                    <p>Monitoree stock en tiempo real, configure alertas de mínimos, registre entradas y salidas. El sistema actualiza automáticamente con cada transacción.</p>
+                </div>
+                <div class="manual-step glass-effect">
+                    <div class="step-number">5</div>
+                    <h4>Creación de Órdenes</h4>
+                    <p>Genere órdenes de trabajo con descripción detallada, asignación de técnicos, estimación de tiempos y seguimiento de estado.</p>
+                </div>
+                <div class="manual-step glass-effect">
+                    <div class="step-number">6</div>
+                    <h4>Generación de Presupuestos</h4>
+                    <p>Cree presupuestos automáticamente seleccionando productos y servicios. El sistema calcula totales, aplica descuentos y genera PDF profesional.</p>
+                </div>
+                <div class="manual-step glass-effect">
+                    <div class="step-number">7</div>
+                    <h4>Reportes y Análisis</h4>
+                    <p>Acceda a reportes predefinidos o cree análisis personalizados. Exporte datos a Excel o PDF para presentaciones ejecutivas.</p>
+                </div>
+                <div class="manual-step glass-effect">
+                    <div class="step-number">8</div>
+                    <h4>Respaldos y Mantenimiento</h4>
+                    <p>Configure respaldos automáticos, ejecute tareas de mantenimiento y monitore el rendimiento del sistema desde el panel de administración.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture">
+        <div class="container">
+            <h2 class="section-title">Arquitectura del Sistema</h2>
+            <div class="architecture-diagram glass-effect">
+                <h3>Patrón Modelo-Vista-Controlador (MVC)</h3>
+                <p>La aplicación implementa una arquitectura MVC robusta que separa claramente las responsabilidades y facilita el mantenimiento y escalabilidad del código.</p>
+            </div>
+            <div class="architecture-layers">
+                <div class="layer glass-effect">
+                    <h4>Vista (View)</h4>
+                    <ul>
+                        <li>• Interfaz gráfica con Tkinter</li>
+                        <li>• Componentes reutilizables</li>
+                        <li>• Widgets personalizados</li>
+                        <li>• Validación de formularios</li>
+                        <li>• Temas y estilos consistentes</li>
+                    </ul>
+                </div>
+                <div class="layer glass-effect">
+                    <h4>Controlador (Controller)</h4>
+                    <ul>
+                        <li>• Lógica de negocio</li>
+                        <li>• Gestión de eventos</li>
+                        <li>• Validaciones</li>
+                        <li>• Coordinación entre capas</li>
+                        <li>• Manejo de errores</li>
+                    </ul>
+                </div>
+                <div class="layer glass-effect">
+                    <h4>Modelo (Model)</h4>
+                    <ul>
+                        <li>• Entidades con Peewee ORM</li>
+                        <li>• Base de datos SQLite3</li>
+                        <li>• Migraciones automáticas</li>
+                        <li>• Relaciones entre tablas</li>
+                        <li>• Queries optimizadas</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem;">
+                <h3>Patrón Observador</h3>
+                <p>Implementado para notificaciones en tiempo real y actualizaciones automáticas de la interfaz cuando cambian los datos. Esto garantiza consistencia entre vistas y mejora la experiencia del usuario.</p>
+                
+                <h3>Decisiones de Diseño</h3>
+                <ul class="features-list">
+                    <li><strong>SQLite3:</strong> Base de datos ligera, sin dependencias externas, ideal para aplicaciones de escritorio</li>
+                    <li><strong>Peewee ORM:</strong> Simplifica las operaciones de base de datos y proporciona un mapeo objeto-relacional elegante</li>
+                    <li><strong>Tkinter:</strong> GUI nativa de Python, garantiza compatibilidad y facilita la distribución</li>
+                    <li><strong>Modular:</strong> Arquitectura en módulos independientes para facilitar testing y mantenimiento</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="technologies">
+        <div class="container">
+            <h2 class="section-title">Stack Tecnológico</h2>
+            <div class="tech-grid">
+                <div class="tech-category glass-effect">
+                    <h4>🐍 Lenguaje y Runtime</h4>
+                    <ul>
+                        <li>Python <span class="tech-version">3.11</span></li>
+                        <li>Virtual Environment <span class="tech-version">venv</span></li>
+                        <li>Package Management <span class="tech-version">pip</span></li>
+                    </ul>
+                </div>
+                <div class="tech-category glass-effect">
+                    <h4>🖥️ Interfaz Gráfica</h4>
+                    <ul>
+                        <li>Tkinter <span class="tech-version">GUI</span></li>
+                        <li>ttk Widgets <span class="tech-version">Modern</span></li>
+                        <li>Custom Components <span class="tech-version">UX</span></li>
+                    </ul>
+                </div>
+                <div class="tech-category glass-effect">
+                    <h4>🗄️ Base de Datos</h4>
+                    <ul>
+                        <li>SQLite3 <span class="tech-version">3.40+</span></li>
+                        <li>Peewee ORM <span class="tech-version">3.16</span></li>
+                        <li>Database Migrations <span class="tech-version">Auto</span></li>
+                    </ul>
+                </div>
+                <div class="tech-category glass-effect">
+                    <h4>📊 Visualización</h4>
+                    <ul>
+                        <li>Matplotlib <span class="tech-version">3.7</span></li>
+                        <li>Seaborn <span class="tech-version">0.12</span></li>
+                        <li>Pandas <span class="tech-version">2.0</span></li>
+                    </ul>
+                </div>
+                <div class="tech-category glass-effect">
+                    <h4>📄 Exportación</h4>
+                    <ul>
+                        <li>ReportLab <span class="tech-version">PDF</span></li>
+                        <li>openpyxl <span class="tech-version">Excel</span></li>
+                        <li>Template Engine <span class="tech-version">Custom</span></li>
+                    </ul>
+                </div>
+                <div class="tech-category glass-effect">
+                    <h4>🧪 Testing & QA</h4>
+                    <ul>
+                        <li>unittest <span class="tech-version">Built-in</span></li>
+                        <li>pytest <span class="tech-version">7.4</span></li>
+                        <li>Coverage <span class="tech-version">7.2</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap">
+        <div class="container">
+            <h2 class="section-title">Roadmap de Desarrollo</h2>
+            <div class="roadmap-timeline">
+                <div class="roadmap-item">
+                    <div class="roadmap-badge">1</div>
+                    <div class="roadmap-content priority-high glass-effect">
+                        <h4>Módulo de Facturación Electrónica</h4>
+                        <p><strong>Prioridad Alta</strong> - Integración con AFIP para facturación electrónica automática. Cumplimiento normativo y automatización del proceso fiscal.</p>
+                        <ul>
+                            <li>• Integración con Web Services AFIP</li>
+                            <li>• Generación automática de comprobantes</li>
+                            <li>• Validación fiscal en tiempo real</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-badge">2</div>
+                    <div class="roadmap-content priority-high glass-effect">
+                        <h4>API REST y Sincronización</h4>
+                        <p><strong>Prioridad Alta</strong> - Desarrollo de API para integración con sistemas externos y sincronización en la nube para acceso multi-dispositivo.</p>
+                        <ul>
+                            <li>• FastAPI backend</li>
+                            <li>• Sincronización en tiempo real</li>
+                            <li>• Autenticación JWT</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-badge">3</div>
+                    <div class="roadmap-content priority-medium glass-effect">
+                        <h4>Aplicación Web Complementaria</h4>
+                        <p><strong>Prioridad Media</strong> - Portal web para consultas de clientes, seguimiento de trabajos y acceso a presupuestos desde dispositivos móviles.</p>
+                        <ul>
+                            <li>• React.js frontend</li>
+                            <li>• Portal de clientes</li>
+                            <li>• Diseño responsive</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-badge">4</div>
+                    <div class="roadmap-content priority-medium glass-effect">
+                        <h4>Inteligencia Artificial</h4>
+                        <p><strong>Prioridad Media</strong> - Implementación de ML para predicción de demanda, recomendaciones automáticas y optimización de inventario.</p>
+                        <ul>
+                            <li>• Predicción de stock</li>
+                            <li>• Análisis de patrones</li>
+                            <li>• Recomendaciones inteligentes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-badge">5</div>
+                    <div class="roadmap-content priority-low glass-effect">
+                        <h4>Integración IoT</h4>
+                        <p><strong>Prioridad Baja</strong> - Conexión con sensores IoT para monitoreo automático de equipos y mantenimiento predictivo.</p>
+                        <ul>
+                            <li>• Sensores de vibración</li>
+                            <li>• Monitoreo de temperatura</li>
+                            <li>• Alertas automáticas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Desarrollador</h4>
+                    <p>Agustín Deux</p>
+                    <p>Desarrollador Python Senior</p>
+                    <p>Especialista en aplicaciones de escritorio y análisis de datos</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tecnologías Utilizadas</h4>
+                    <ul>
+                        <li>Python 3.11 + Tkinter</li>
+                        <li>SQLite3 + Peewee ORM</li>
+                        <li>Matplotlib + Seaborn</li>
+                        <li>Patrón MVC + Observer</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>Email: agustin.deux@email.com</p>
+                    <p>LinkedIn: /in/agustin-deux</p>
+                    <p>GitHub: /AgustinDeux</p>
+                    <p>Portfolio: agustindev.com</p>
+                </div>
+            </div>
+            <hr style="margin: 2rem 0; border: 1px solid var(--glass-border);">
+            <p>&copy; 2024 Agustín Deux - Sistema de Administración EAD. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================================
+        // CURSOR PERSONALIZADO
+        // ============================================================================
+        
+        class CustomCursor {
+            constructor() {
+                this.cursor = null;
+                this.isActive = false;
+            }
+            
+            init() {
+                // No inicializar en dispositivos móviles
+                if (window.innerWidth <= 768) return;
+                
+                if (this.cursor) return;
+                
+                this.cursor = document.createElement('div');
+                this.cursor.className = 'cursor';
+                document.body.appendChild(this.cursor);
+                
+                this.bindEvents();
+                this.isActive = true;
+            }
+            
+            bindEvents() {
+                document.addEventListener('mousemove', (e) => {
+                    if (!this.isActive) return;
+                    
+                    requestAnimationFrame(() => {
+                        this.cursor.style.left = (e.clientX - 10) + 'px';
+                        this.cursor.style.top = (e.clientY - 10) + 'px';
+                    });
+                });
+                
+                // Actualizar variables CSS para efectos de seguimiento
+                document.addEventListener('mousemove', (e) => {
+                    document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+                    document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+                });
+                
+                const interactiveElements = 'a, button, .tech-badge, .screenshot-card, .tech-category, input, textarea, .logo a';
+                document.querySelectorAll(interactiveElements).forEach(elem => {
+                    elem.addEventListener('mouseenter', () => {
+                        this.cursor.style.transform = 'scale(1.5)';
+                        this.cursor.style.background = 'rgba(97, 218, 251, 0.6)';
+                    });
+                    
+                    elem.addEventListener('mouseleave', () => {
+                        this.cursor.style.transform = 'scale(1)';
+                        this.cursor.style.background = 'rgba(97, 218, 251, 0.4)';
+                    });
+                });
+                
+                // Ocultar cursor al salir de la ventana
+                document.addEventListener('mouseleave', () => {
+                    this.cursor.style.opacity = '0';
+                });
+                
+                document.addEventListener('mouseenter', () => {
+                    this.cursor.style.opacity = '1';
+                });
+            }
+        }
+        
+        // ============================================================================
+        // NAVEGACIÓN Y ANIMACIONES
+        // ============================================================================
+        
+        // Navigation tabs functionality
+        document.querySelectorAll('.nav-tabs a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-tabs a').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Smooth scroll to section
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Update active nav on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-tabs a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.tech-category, .screenshot-card, .manual-step, .layer, .roadmap-content').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // ============================================================================
+        // MENÚ HAMBURGER RESPONSIVE
+        // ============================================================================
+        
+        function initHamburgerMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('#nav-links');
+            
+            if (!hamburger || !navLinks) return;
+            
+            hamburger.addEventListener('click', (e) => {
+                console.log('Hamburger clicked!', e);
+                const isActive = hamburger.classList.contains('active');
+                
+                if (isActive) {
+                    // Cerrar menú
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                } else {
+                    // Abrir menú
+                    hamburger.classList.add('active');
+                    navLinks.classList.add('active');
+                    hamburger.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            // Cerrar menú al hacer click en un enlace
+            const navLinksItems = navLinks.querySelectorAll('a');
+            navLinksItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Cerrar menú al hacer click fuera de él
+            document.addEventListener('click', (e) => {
+                const isClickInsideNav = navLinks.contains(e.target) || hamburger.contains(e.target);
+                
+                if (!isClickInsideNav && navLinks.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Cerrar menú al redimensionar la ventana (para evitar problemas responsive)
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+        
+        // ============================================================================
+        // INICIALIZACIÓN
+        // ============================================================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = new CustomCursor();
+            cursor.init();
+            initHamburgerMenu();
+            
+            // Debug para verificar clicks en logo
+            const logoLink = document.querySelector('.logo a');
+            if (logoLink) {
+                logoLink.addEventListener('click', function(e) {
+                    console.log('Logo clicked!', e);
+                    // Asegurar que el click funcione
+                    window.location.href = this.href;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
