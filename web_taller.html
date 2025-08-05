@@ -480,18 +480,30 @@
             border-radius: 0 10px 10px 0;
             position: relative;
             border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
+        
+
         
         .objectives-list li::before {
             content: '🎯';
-            position: absolute;
-            left: -15px;
-            top: 50%;
-            transform: translateY(-50%);
+            position: relative;
+            left: 0;
+            top: 0;
+            transform: none;
             background: var(--bg-color);
-            padding: 0.5rem;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
             border: 2px solid var(--neon-color);
+            box-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+            flex-shrink: 0;
         }
         
         /* Tech grid */
@@ -658,94 +670,219 @@
             text-shadow: var(--neon-shadow);
         }
         
-        /* Process timeline */
+        /* Process timeline - Layout lateral perfectamente sincronizado */
         .process-timeline {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
             position: relative;
-            padding: 2rem 0;
+            grid-template-rows: auto auto auto auto;
         }
         
         .process-timeline::before {
             content: '';
             position: absolute;
-            left: 50%;
+            left: 100px;
             top: 0;
             bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, var(--neon-color), var(--secondary-color));
-            transform: translateX(-50%);
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--neon-color);
+            width: 3px;
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                var(--neon-color) 10%,
+                var(--neon-color) 90%,
+                transparent 100%
+            );
+            box-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
         }
         
-        .process-step {
-            display: flex;
-            margin-bottom: 4rem;
+        .timeline-sidebar {
             position: relative;
+            display: contents;
         }
         
-        .process-step:nth-child(odd) {
-            flex-direction: row;
+        .process-steps-content {
+            display: contents;
         }
         
-        .process-step:nth-child(even) {
-            flex-direction: row-reverse;
+        .timeline-step {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .timeline-step:nth-child(1) { grid-row: 1; }
+        .timeline-step:nth-child(2) { grid-row: 2; }
+        .timeline-step:nth-child(3) { grid-row: 3; }
+        .timeline-step:nth-child(4) { grid-row: 4; }
+        
+        .process-content:nth-child(1) { grid-row: 1; }
+        .process-content:nth-child(2) { grid-row: 2; }
+        .process-content:nth-child(3) { grid-row: 3; }
+        .process-content:nth-child(4) { grid-row: 4; }
+        
+        .timeline-marker {
+            position: relative;
+            z-index: 2;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 30px rgba(97, 218, 251, 0.4),
+                inset 0 2px 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            animation: pulse-glow 3s ease-in-out infinite alternate;
+            margin: 0 auto;
+        }
+        
+        .timeline-marker:hover {
+            transform: scale(1.1);
+            box-shadow: 
+                0 0 40px rgba(97, 218, 251, 0.6),
+                inset 0 2px 15px rgba(255, 255, 255, 0.2);
+        }
+        
+        .process-number {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--bg-color);
+            text-shadow: none;
+        }
+        
+        .timeline-connector {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-color), transparent);
+            transform: translateY(-50%);
+            box-shadow: 0 0 8px rgba(97, 218, 251, 0.3);
+        }
+        
+        .timeline-connector::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid var(--neon-color);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            filter: drop-shadow(0 0 3px rgba(97, 218, 251, 0.5));
+        }
+        
+        .timeline-step {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .process-content {
-            flex: 1;
-            padding: 2rem;
+            padding: 2.5rem;
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            margin: 0 3rem;
+            border: 1px solid rgba(97, 218, 251, 0.3);
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            overflow: hidden;
+            align-self: start;
         }
         
         .process-content:hover {
+            transform: translateY(-8px) translateX(5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(97, 218, 251, 0.2);
             border-color: var(--neon-color);
-            box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
         }
         
         .process-content::before {
             content: '';
             position: absolute;
-            top: 50%;
-            width: 0;
-            height: 0;
-            border: 15px solid transparent;
-            transform: translateY(-50%);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(97, 218, 251, 0.15),
+                transparent
+            );
+            transition: 0.6s ease;
+            z-index: 1;
         }
         
-        .process-step:nth-child(odd) .process-content::before {
-            right: -30px;
-            border-left-color: var(--glass-border);
+        .process-content:hover::before {
+            left: 100%;
         }
         
-        .process-step:nth-child(even) .process-content::before {
-            left: -30px;
-            border-right-color: var(--glass-border);
+        .process-content h4 {
+            color: var(--neon-color);
+            font-size: 1.4rem;
+            font-family: var(--font-heading);
+            text-shadow: var(--neon-shadow);
+            position: relative;
+            z-index: 2;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            padding-top: 0;
         }
         
-        .process-number {
+        .process-content p {
+            color: var(--text-color);
+            line-height: 1.6;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .process-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .process-content ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            transition: transform 0.2s ease;
+        }
+        
+        .process-content ul li:hover {
+            transform: translateX(5px);
+            color: var(--neon-color);
+        }
+        
+        .process-content ul li::before {
+            content: '→';
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, var(--neon-color), var(--secondary-color));
-            color: var(--bg-color);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            z-index: 10;
-            box-shadow: 0 0 20px rgba(97, 218, 251, 0.5);
-            border: 2px solid var(--bg-color);
+            left: 0;
+            color: var(--neon-color);
+            transition: transform 0.2s ease;
+        }
+        
+        .process-content ul li:hover::before {
+            transform: translateX(3px);
         }
         
         /* Code showcase */
@@ -1027,13 +1164,66 @@
                 margin-top: 1rem;
             }
             
-            .process-content::before {
-                display: none;
+            /* Timeline responsive - Layout mobile */
+            .process-timeline {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+            
+            .timeline-sidebar {
+                order: -1;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem 0;
+                gap: 1rem;
+                overflow-x: auto;
+                padding-bottom: 2rem;
+            }
+            
+            .process-steps-content {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .process-timeline::before {
+                top: 40px;
+                left: 0;
+                right: 0;
+                bottom: auto;
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(90deg, transparent 0%, var(--neon-color) 10%, var(--neon-color) 90%, transparent 100%);
+            }
+            
+            .timeline-marker {
+                width: 60px;
+                height: 60px;
+                flex-shrink: 0;
             }
             
             .process-number {
-                left: -30px;
-                transform: translateY(-50%);
+                font-size: 1.2rem;
+            }
+            
+            .timeline-connector {
+                display: none;
+            }
+            
+            .process-steps-content {
+                gap: 2rem;
+            }
+            
+            .process-content {
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .process-content:hover {
+                transform: translateY(-5px);
             }
             
             .project-meta {
@@ -1354,58 +1544,77 @@
         <div class="container">
             <h2 class="section-title neon-text">Proceso de Desarrollo</h2>
             <div class="process-timeline">
-                <div class="process-step">
-                    <div class="process-number">1</div>
+                <!-- Timeline vertical al lado izquierdo -->
+                <div class="timeline-sidebar">
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <span class="process-number">1</span>
+                        </div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <span class="process-number">2</span>
+                        </div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <span class="process-number">3</span>
+                        </div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <span class="process-number">4</span>
+                        </div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                </div>
+                
+                <!-- Contenido de proceso al lado derecho -->
+                <div class="process-steps-content">
                     <div class="process-content glass-effect">
                         <h4>Investigación y Análisis</h4>
                         <p>Análisis profundo del negocio, competencia local y necesidades específicas del sector oleohidráulico. Investigación de palabras clave locales y comportamiento del público objetivo.</p>
                         <ul>
-                            <li>• Análisis de competencia regional</li>
-                            <li>• Research de keywords técnicas</li>
-                            <li>• Definición de buyer personas</li>
-                            <li>• Arquitectura de información</li>
+                            <li>Análisis de competencia regional</li>
+                            <li>Research de keywords técnicas</li>
+                            <li>Definición de buyer personas</li>
+                            <li>Arquitectura de información</li>
                         </ul>
                     </div>
-                </div>
-                
-                <div class="process-step">
-                    <div class="process-number">2</div>
+                    
                     <div class="process-content glass-effect">
                         <h4>Diseño UI/UX</h4>
                         <p>Creación de wireframes y diseño visual enfocado en conversión. Paleta de colores industrial, tipografía legible y jerarquía visual clara para destacar servicios y experiencia.</p>
                         <ul>
-                            <li>• Wireframes de baja fidelidad</li>
-                            <li>• Paleta cyber/industrial</li>
-                            <li>• Diseño mobile-first</li>
-                            <li>• Prototipo interactivo</li>
+                            <li>Wireframes de baja fidelidad</li>
+                            <li>Paleta cyber/industrial</li>
+                            <li>Diseño mobile-first</li>
+                            <li>Prototipo interactivo</li>
                         </ul>
                     </div>
-                </div>
-                
-                <div class="process-step">
-                    <div class="process-number">3</div>
+                    
                     <div class="process-content glass-effect">
                         <h4>Desarrollo Frontend</h4>
                         <p>Implementación con HTML5 semántico, CSS3 moderno y JavaScript vanilla. Enfoque en performance, accesibilidad y SEO. Uso de CSS Grid y Flexbox para layouts responsive.</p>
                         <ul>
-                            <li>• HTML5 semántico</li>
-                            <li>• CSS3 Grid & Flexbox</li>
-                            <li>• JavaScript para interacciones</li>
-                            <li>• Optimización de imágenes</li>
+                            <li>HTML5 semántico</li>
+                            <li>CSS3 Grid & Flexbox</li>
+                            <li>JavaScript para interacciones</li>
+                            <li>Optimización de imágenes</li>
                         </ul>
                     </div>
-                </div>
-                
-                <div class="process-step">
-                    <div class="process-number">4</div>
+                    
                     <div class="process-content glass-effect">
                         <h4>Optimización y Testing</h4>
                         <p>Testing exhaustivo en múltiples dispositivos, optimización de Core Web Vitals, implementación de Analytics y configuración de SEO local para La Pampa.</p>
                         <ul>
-                            <li>• Testing cross-browser</li>
-                            <li>• Optimización Core Web Vitals</li>
-                            <li>• SEO local La Pampa</li>
-                            <li>• Google Analytics & Search Console</li>
+                            <li>Testing cross-browser</li>
+                            <li>Optimización Core Web Vitals</li>
+                            <li>SEO local La Pampa</li>
+                            <li>Google Analytics & Search Console</li>
                         </ul>
                     </div>
                 </div>

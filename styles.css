@@ -711,36 +711,137 @@
       padding: 5rem 2rem;
   }
   
-  .process-grid {
+  /* Timeline container - Layout principal */
+  .process-timeline-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      grid-template-columns: 200px 1fr;
+      gap: 4rem;
+      margin-top: 4rem;
+      align-items: start;
+  }
+  
+  /* Timeline vertical al lado izquierdo */
+  .process-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+      padding: 2rem 0;
+  }
+  
+  .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(
+          180deg,
+          transparent 0%,
+          var(--neon-color) 10%,
+          var(--neon-color) 90%,
+          transparent 100%
+      );
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+  }
+  
+  .timeline-step {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .timeline-marker {
+      position: relative;
+      z-index: 2;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--neon-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+          0 0 30px rgba(97, 218, 251, 0.4),
+          inset 0 2px 10px rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      animation: pulse-glow 3s ease-in-out infinite alternate;
+  }
+  
+  .timeline-marker:hover {
+      transform: scale(1.1);
+      box-shadow: 
+          0 0 40px rgba(97, 218, 251, 0.6),
+          inset 0 2px 15px rgba(255, 255, 255, 0.2);
+  }
+  
+  .step-number {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--bg-color);
+      text-shadow: none;
+  }
+  
+  .timeline-connector {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-color), transparent);
+      transform: translateY(-50%);
+      box-shadow: 0 0 8px rgba(97, 218, 251, 0.3);
+  }
+  
+  .timeline-connector::after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 8px solid var(--neon-color);
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      filter: drop-shadow(0 0 3px rgba(97, 218, 251, 0.5));
+  }
+  
+  /* Container para las tarjetas */
+  .process-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
   }
   
   .process-card {
     background: rgba(31, 41, 55, 0.95);
     color: var(--text-color);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-    text-align: center;
-    min-height: 250px;
-    border: 1px solid var(--neon-color);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: all 0.4s ease;
+    text-align: left;
+    min-height: 280px;
+    border: 1px solid rgba(97, 218, 251, 0.3);
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    backdrop-filter: blur(10px);
+    gap: 1.5rem;
+    backdrop-filter: blur(15px);
     transform-style: preserve-3d;
     perspective: 1000px;
 }
 
 .process-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--card-shadow-strong);
+    transform: translateY(-8px) translateX(5px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(97, 218, 251, 0.2);
     border-color: var(--neon-color);
 }
 
@@ -754,61 +855,55 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(97, 218, 251, 0.2),
+        rgba(97, 218, 251, 0.15),
         transparent
     );
-    transition: 0.5s;
+    transition: 0.6s ease;
     z-index: 1;
-}
-
-.process-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        circle at center,
-        transparent 0%,
-        rgba(97, 218, 251, 0.1) 100%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
 .process-card:hover::before {
     left: 100%;
 }
 
-.process-card:hover::after {
-    opacity: 1;
-}
-
-.process-card h3 {
-    color: var(--neon-color);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    font-family: var(--font-heading);
-    text-shadow: var(--text-glow-soft);
+.process-cards .process-card h3 {
+    color: var(--neon-color) !important;
+    font-size: 1.6rem !important;
+    font-family: var(--font-heading) !important;
+    text-shadow: var(--text-glow-soft) !important;
     position: relative;
     z-index: 2;
+    margin: 0 !important;
+    margin-bottom: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.8rem !important;
+    flex-wrap: nowrap !important;
 }
 
-.process-number {
-    color: var(--neon-color);
-    font-size: 3rem;
-    font-weight: bold;
-    opacity: 0.2;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-family: var(--font-heading);
-    text-shadow: var(--text-glow-medium);
-    transition: all 0.3s ease;
+.process-cards .process-card h3 i.neon-icon {
+    font-size: 1.8rem !important;
+    color: var(--neon-color) !important;
+    text-shadow: var(--text-glow-medium) !important;
+    transition: all 0.4s ease !important;
+    filter: drop-shadow(0 0 8px rgba(97, 218, 251, 0.4)) !important;
+    flex-shrink: 0 !important;
+    margin-right: 0.5rem !important;
 }
 
-.process-card:hover .process-number {
-    opacity: 0.3;
-    transform: scale(1.1);
-    text-shadow: var(--text-glow-strong);
+.process-cards .process-card:hover h3 i.neon-icon {
+    transform: scale(1.15) rotateY(360deg) !important;
+    text-shadow: var(--text-glow-strong) !important;
+    filter: drop-shadow(0 0 20px rgba(97, 218, 251, 0.9)) !important;
+}
+
+.process-card p {
+    color: var(--text-color);
+    line-height: 1.6;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+    margin: 0;
 }
 
 .process-list {
@@ -1064,6 +1159,75 @@
     .hero-content {
       transform: none !important;
     }
+  
+  /* Timeline responsive - Layout mobile */
+  .process-timeline-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+  }
+  
+  .process-timeline {
+      order: -1;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 1rem 0;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 2rem;
+  }
+  
+  .timeline-line {
+      top: 50%;
+      left: 0;
+      right: 0;
+      bottom: auto;
+      width: 100%;
+      height: 3px;
+      transform: translateY(-50%);
+  }
+  
+  .timeline-marker {
+      width: 60px;
+      height: 60px;
+      flex-shrink: 0;
+  }
+  
+  .step-number {
+      font-size: 1.2rem;
+  }
+  
+  .timeline-connector {
+      display: none;
+  }
+  
+  .process-cards {
+      gap: 2rem;
+  }
+  
+  .process-card {
+      padding: 2rem;
+      min-height: auto;
+      text-align: center;
+  }
+  
+  .process-card:hover {
+      transform: translateY(-5px);
+  }
+  
+  .process-cards .process-card h3 {
+      justify-content: center !important;
+      text-align: center !important;
+      margin-bottom: 1rem !important;
+      flex-direction: column !important;
+      gap: 0.5rem !important;
+  }
+  
+  .process-cards .process-card h3 i.neon-icon {
+      font-size: 2.2rem !important;
+      margin-right: 0 !important;
+      margin-bottom: 0.5rem !important;
+  }
   }
   
   /* Optimización para reducir CLS */
