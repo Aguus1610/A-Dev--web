@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://aguus1610.github.io/sitemap.xml
+
+# Deshabilitar crawling de archivos de configuración
+Disallow: /css/
+Disallow: /js/
+Disallow: /.env
+Disallow: /.env.example
