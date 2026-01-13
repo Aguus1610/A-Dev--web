@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Servicios de desarrollo: apps de gestión, automatización, importación Excel, reportes PDF/Word, dashboards y desarrollo web. Soluciones a medida.">
+    <meta name="keywords" content="desarrollo apps Python, automatización, reportes PDF, importación Excel, desarrollo web Flask">
+    <meta name="author" content="Agustin Deux">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aguus1610.github.io/servicios.html">
+    <meta property="og:title" content="Servicios | Desarrollador Python">
+    <meta property="og:description" content="Apps de gestión, automatización, reportes y desarrollo web. Soluciones a medida para tu negocio.">
+    
+    <link rel="canonical" href="https://aguus1610.github.io/servicios.html">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.webmanifest">
+    <title>Servicios | Desarrollador Python</title>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
+    <header class="header" id="header">
+        <nav class="nav container" role="navigation" aria-label="Navegación principal">
+            <a href="index.html" class="nav__logo" aria-label="Inicio">
+                <img src="assets/img/logo-a-dev.svg" alt="A-Dev Logo" class="logo-image" onerror="this.onerror=null; this.src='assets/img/logo-a-dev.png';" />
+                <span class="logo-text">A-Dev</span>
+            </a>
+            
+            <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav__menu" id="nav-menu">
+                <li class="nav__item"><a href="index.html" class="nav__link">Inicio</a></li>
+                <li class="nav__item"><a href="servicios.html" class="nav__link active">Servicios</a></li>
+                <li class="nav__item"><a href="proyectos.html" class="nav__link">Proyectos</a></li>
+                <li class="nav__item"><a href="sobre-mi.html" class="nav__link">Sobre mí</a></li>
+                <li class="nav__item"><a href="contacto.html" class="nav__link">Contacto</a></li>
+            </ul>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                <svg class="theme-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="sun-icon" d="M10 3V1M10 19V17M17 10H19M1 10H3M15.657 15.657L16.97 16.97M3.03 3.03L4.343 4.343M15.657 4.343L16.97 3.03M3.03 16.97L4.343 15.657M14 10C14 12.2091 12.2091 14 10 14C7.79086 14 6 12.2091 6 10C6 7.79086 7.79086 6 10 6C12.2091 6 14 7.79086 14 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle class="moon-icon" cx="10" cy="10" r="4" fill="currentColor" style="display: none;"/>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="page-header page-header--parallax">
+            <div class="page-header__background parallax-bg" data-parallax-speed="0.5"></div>
+            <div class="container">
+                <h1 class="page-header__title">Servicios de Desarrollo</h1>
+                <p class="page-header__subtitle">
+                    Soluciones profesionales para digitalizar y optimizar tu negocio. 
+                    Aplicaciones de escritorio, automatización de procesos, desarrollo web y sistemas a medida. 
+                    Cada servicio está diseñado para resolver problemas reales y generar resultados medibles.
+                </p>
+                <div class="hero__cta" style="margin-top: var(--spacing-xl);">
+                    <a href="contacto.html" class="btn btn--primary btn--large">Solicitar Presupuesto</a>
+                    <a href="https://wa.me/542302672827" target="_blank" rel="noopener noreferrer" class="btn btn--secondary btn--large">Hablar por WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Cards -->
+        <section class="services-summary section section--parallax section--code-bg">
+            <div class="container">
+                <h2 class="section__title">¿Qué puedo hacer por tu negocio?</h2>
+                <p class="section__subtitle">Servicios profesionales enfocados en resultados reales y soluciones prácticas. Cada servicio está diseñado para resolver problemas específicos y generar valor para tu negocio.</p>
+                
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M9 9h6v6H9z"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Aplicaciones de Escritorio</h3>
+                        <p class="service-card__description">
+                            Sistemas completos de gestión para tu negocio: control de stock, clientes, presupuestos, ventas y facturación. 
+                            Interfaz intuitiva, base de datos local y reportes integrados. Ideal para talleres, comercios y empresas familiares.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M2 12h20"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Automatización de Procesos</h3>
+                        <p class="service-card__description">
+                            Eliminá tareas repetitivas con scripts personalizados: procesamiento de archivos Excel, envío automático de emails, 
+                            generación de reportes periódicos y sincronización de datos. Ahorrá tiempo y reducí errores humanos.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Reportes y Análisis</h3>
+                        <p class="service-card__description">
+                            Generación automática de reportes profesionales en PDF, Word y Excel. Dashboards con estadísticas, 
+                            gráficos y visualizaciones para tomar decisiones informadas sobre tu negocio.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <path d="M8 21h8M12 17v4"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Sitios Web Publicitarios</h3>
+                        <p class="service-card__description">
+                            Landing pages y sitios corporativos modernos, responsivos y optimizados. Diseño profesional, 
+                            formularios de contacto integrados y SEO básico. Presencia web que convierte visitantes en clientes.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Integración con Bases de Datos</h3>
+                        <p class="service-card__description">
+                            Sistemas con bases de datos locales (SQLite) o integración con sistemas existentes. 
+                            Gestión eficiente de información, respaldos automáticos y consultas optimizadas para tu aplicación.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 20h9"/>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Optimización y Mantenimiento</h3>
+                        <p class="service-card__description">
+                            Mejoras de rendimiento, actualizaciones de seguridad, corrección de errores y optimización SEO. 
+                            Mantenimiento continuo de sitios web existentes para que sigan funcionando perfectamente.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- How I Work Section -->
+        <section class="section section--alt section--parallax section--circuit-bg">
+            <div class="container">
+                <h2 class="section__title">Cómo Trabajo</h2>
+                <p class="section__subtitle">Un proceso estructurado y transparente que garantiza resultados de calidad. Desde el análisis inicial hasta la entrega final, cada etapa está diseñada para asegurar que recibas exactamente lo que necesitás.</p>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="process-step__number">1</div>
+                        <h3 class="process-step__title">Relevamiento y Objetivos</h3>
+                        <p class="process-step__description">
+                            Analizamos juntos tus necesidades, procesos actuales y objetivos del proyecto. 
+                            Definimos alcance, funcionalidades prioritarias y expectativas claras desde el inicio.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step__number">2</div>
+                        <h3 class="process-step__title">Prototipo y Planificación</h3>
+                        <p class="process-step__description">
+                            Creo un prototipo funcional o mockup para validar la solución antes de desarrollar. 
+                            Planificamos tiempos, entregables y metodología de trabajo adaptada a tu proyecto.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step__number">3</div>
+                        <h3 class="process-step__title">Desarrollo por Módulos</h3>
+                        <p class="process-step__description">
+                            Desarrollo incremental, entregando funcionalidades por etapas. 
+                            Podés probar y dar feedback en cada fase, asegurando que el resultado final sea exactamente lo que necesitás.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step__number">4</div>
+                        <h3 class="process-step__title">Pruebas y Ajustes</h3>
+                        <p class="process-step__description">
+                            Realizamos pruebas exhaustivas junto con vos, identificamos mejoras y ajustamos detalles. 
+                            El sistema se adapta a tu forma de trabajar, no al revés.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step__number">5</div>
+                        <h3 class="process-step__title">Entrega y Soporte Inicial</h3>
+                        <p class="process-step__description">
+                            Entrego el sistema completo con documentación, capacitación básica y soporte inicial. 
+                            Aseguro que todo funcione perfectamente y que sepas cómo usarlo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technologies Section -->
+        <section class="section section--parallax section--grid-bg">
+            <div class="container">
+                <h2 class="section__title">Tecnologías y Herramientas</h2>
+                <p class="section__subtitle">Stack tecnológico profesional que uso en cada proyecto. Herramientas probadas y confiables que garantizan soluciones robustas y mantenibles.</p>
+                
+                <div class="stack-grid">
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Python</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Tkinter</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">PyQt</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">SQLite3</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Peewee ORM</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Pandas</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Matplotlib</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">HTML5</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">CSS3</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">JavaScript</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Git / GitHub</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Flask</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Diseño Responsive</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">MVC</span>
+                    </div>
+                    <div class="stack-badge">
+                        <span class="stack-badge__text">Buenas Prácticas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What's Included Section -->
+        <section class="section section--alt section--parallax section--code-bg">
+            <div class="container">
+                <h2 class="section__title">Qué Incluye el Servicio</h2>
+                <p class="section__subtitle">Transparencia total sobre lo que recibís al contratar mis servicios. Sin sorpresas, sin costos ocultos. Todo está claro desde el inicio.</p>
+                
+                <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Código Limpio y Documentado</h3>
+                        <p class="service-card__description">
+                            Código bien estructurado, comentado y siguiendo buenas prácticas. 
+                            Fácil de mantener y escalar en el futuro.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Documentación Completa</h3>
+                        <p class="service-card__description">
+                            Manual de usuario, guía de instalación y documentación técnica. 
+                            Todo lo necesario para usar y mantener el sistema.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Capacitación Incluida</h3>
+                        <p class="service-card__description">
+                            Sesión de capacitación para que tu equipo aprenda a usar el sistema eficientemente. 
+                            Soporte inicial durante las primeras semanas.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Soporte Post-Entrega</h3>
+                        <p class="service-card__description">
+                            Soporte técnico durante las primeras semanas después de la entrega. 
+                            Corrección de errores y ajustes menores sin costo adicional.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                <polyline points="7.5 4.21 12 6.81 16.5 4.21"/>
+                                <polyline points="7.5 19.79 7.5 14.6 3 12"/>
+                                <polyline points="21 12 16.5 14.6 16.5 19.79"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Código Fuente y Repositorio</h3>
+                        <p class="service-card__description">
+                            Recibís todo el código fuente del proyecto, organizado en un repositorio Git. 
+                            Sos dueño completo del proyecto y podés continuar desarrollándolo.
+                        </p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-card__icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <path d="M8 21h8M12 17v4"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-card__title">Optimización y Performance</h3>
+                        <p class="service-card__description">
+                            Sistemas optimizados para rendimiento, carga rápida y uso eficiente de recursos. 
+                            Pruebas de carga y optimización incluida en el desarrollo.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Services Section -->
+        <section class="services-detail section section--parallax section--circuit-bg">
+            <div class="container">
+                <h2 class="section__title">Detalle de Servicios</h2>
+                <p class="section__subtitle">Información detallada sobre cada servicio que ofrezco. Entendé qué resuelve cada uno, qué recibís y cuánto tiempo lleva desarrollarlo.</p>
+
+                <article class="service-detail">
+                    <div class="service-detail__header">
+                        <h2 class="service-detail__title">Aplicaciones de Escritorio</h2>
+                        <span class="service-detail__badge">Desktop</span>
+                    </div>
+                    
+                    <div class="service-detail__content">
+                        <h3 class="service-detail__subtitle">¿Qué resuelve?</h3>
+                        <p>
+                            Sistemas completos para gestionar inventario, clientes, presupuestos, ventas y facturación. 
+                            Ideal para talleres, comercios y empresas que necesitan ordenar información y procesos internos.
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Entregables</h3>
+                        <ul class="service-detail__list">
+                            <li>Aplicación de escritorio funcional (Windows/Linux)</li>
+                            <li>Base de datos local (SQLite) con respaldo</li>
+                            <li>Interfaz gráfica intuitiva y responsive</li>
+                            <li>Módulos de gestión según necesidad (stock, clientes, ventas, etc.)</li>
+                            <li>Reportes integrados (PDF/Excel)</li>
+                            <li>Documentación de usuario y técnica</li>
+                        </ul>
+                        
+                        <h3 class="service-detail__subtitle">Tecnologías</h3>
+                        <div class="service-detail__tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Tkinter / PyQt</span>
+                            <span class="tag">SQLite3</span>
+                            <span class="tag">Peewee ORM</span>
+                            <span class="tag">MVC</span>
+                        </div>
+                        
+                        <h3 class="service-detail__subtitle">Tiempos típicos</h3>
+                        <p>
+                            <strong>Prototipo funcional:</strong> 1-2 semanas<br>
+                            <strong>Sistema completo básico:</strong> 3-6 semanas<br>
+                            <strong>Sistema completo con módulos avanzados:</strong> 2-4 meses
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Ideal para...</h3>
+                        <p>
+                            Talleres mecánicos, comercios, empresas familiares, negocios que manejan stock y clientes, 
+                            y cualquier organización que necesite digitalizar procesos administrativos.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="service-detail">
+                    <div class="service-detail__header">
+                        <h2 class="service-detail__title">Automatización de Procesos</h2>
+                        <span class="service-detail__badge">Scripts</span>
+                    </div>
+                    
+                    <div class="service-detail__content">
+                        <h3 class="service-detail__subtitle">¿Qué resuelve?</h3>
+                        <p>
+                            Elimina tareas repetitivas y manuales: procesamiento de archivos, envío de emails, 
+                            generación de reportes periódicos, sincronización de datos entre sistemas.
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Entregables</h3>
+                        <ul class="service-detail__list">
+                            <li>Scripts Python ejecutables</li>
+                            <li>Programación de tareas (cron/scheduler)</li>
+                            <li>Logs y manejo de errores</li>
+                            <li>Documentación de uso</li>
+                            <li>Instrucciones de instalación y configuración</li>
+                        </ul>
+                        
+                        <h3 class="service-detail__subtitle">Tecnologías</h3>
+                        <div class="service-detail__tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">openpyxl</span>
+                            <span class="tag">smtplib</span>
+                            <span class="tag">schedule</span>
+                        </div>
+                        
+                        <h3 class="service-detail__subtitle">Tiempos típicos</h3>
+                        <p>
+                            <strong>Script simple:</strong> 3-5 días<br>
+                            <strong>Automatización compleja:</strong> 1-3 semanas<br>
+                            <strong>Sistema de automatización completo:</strong> 3-6 semanas
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Ideal para...</h3>
+                        <p>
+                            Empresas que procesan archivos Excel regularmente, necesitan enviar reportes automáticos, 
+                            sincronizar datos entre sistemas, o cualquier proceso repetitivo que consuma tiempo.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="service-detail">
+                    <div class="service-detail__header">
+                        <h2 class="service-detail__title">Sitios Web Publicitarios</h2>
+                        <span class="service-detail__badge">Web</span>
+                    </div>
+                    
+                    <div class="service-detail__content">
+                        <h3 class="service-detail__subtitle">¿Qué resuelve?</h3>
+                        <p>
+                            Presencia web profesional para tu negocio: landing pages atractivas, sitios corporativos modernos, 
+                            formularios de contacto integrados con email o WhatsApp. Diseño responsive que se ve perfecto en todos los dispositivos.
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Entregables</h3>
+                        <ul class="service-detail__list">
+                            <li>Sitio web responsive y optimizado</li>
+                            <li>Diseño moderno y profesional</li>
+                            <li>Formularios de contacto funcionales</li>
+                            <li>SEO básico optimizado</li>
+                            <li>Integración con WhatsApp (opcional)</li>
+                            <li>Documentación de despliegue</li>
+                        </ul>
+                        
+                        <h3 class="service-detail__subtitle">Tecnologías</h3>
+                        <div class="service-detail__tech">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Flask (opcional)</span>
+                            <span class="tag">EmailJS</span>
+                        </div>
+                        
+                        <h3 class="service-detail__subtitle">Tiempos típicos</h3>
+                        <p>
+                            <strong>Landing page simple:</strong> 1-2 semanas<br>
+                            <strong>Sitio web completo (5-6 páginas):</strong> 2-4 semanas<br>
+                            <strong>Sitio con backend y formularios:</strong> 3-5 semanas
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Ideal para...</h3>
+                        <p>
+                            Emprendimientos, profesionales independientes, pequeñas y medianas empresas que necesitan presencia web profesional, 
+                            landing pages para productos o servicios, o sitios corporativos modernos.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="service-detail">
+                    <div class="service-detail__header">
+                        <h2 class="service-detail__title">Reportes y Dashboards</h2>
+                        <span class="service-detail__badge">Análisis</span>
+                    </div>
+                    
+                    <div class="service-detail__content">
+                        <h3 class="service-detail__subtitle">¿Qué resuelve?</h3>
+                        <p>
+                            Generación automática de reportes profesionales en PDF, Word y Excel. Dashboards con estadísticas, 
+                            gráficos y visualizaciones para tomar decisiones informadas sobre tu negocio.
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Entregables</h3>
+                        <ul class="service-detail__list">
+                            <li>Módulo de generación de reportes</li>
+                            <li>Plantillas personalizables</li>
+                            <li>Exportación a PDF, Word y/o Excel</li>
+                            <li>Dashboard con gráficos y estadísticas</li>
+                            <li>Integración con sistema existente</li>
+                            <li>Documentación de uso</li>
+                        </ul>
+                        
+                        <h3 class="service-detail__subtitle">Tecnologías</h3>
+                        <div class="service-detail__tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">ReportLab</span>
+                            <span class="tag">python-docx</span>
+                            <span class="tag">openpyxl</span>
+                            <span class="tag">Matplotlib</span>
+                            <span class="tag">Pandas</span>
+                        </div>
+                        
+                        <h3 class="service-detail__subtitle">Tiempos típicos</h3>
+                        <p>
+                            <strong>Reporte simple:</strong> 3-5 días<br>
+                            <strong>Múltiples formatos:</strong> 1-2 semanas<br>
+                            <strong>Sistema completo de reportes y dashboard:</strong> 3-5 semanas
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Ideal para...</h3>
+                        <p>
+                            Empresas que generan facturas, presupuestos, informes de ventas, reportes de stock, 
+                            o necesitan visualizar métricas del negocio para tomar decisiones estratégicas.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="service-detail">
+                    <div class="service-detail__header">
+                        <h2 class="service-detail__title">Integración con Excel</h2>
+                        <span class="service-detail__badge">Integración</span>
+                    </div>
+                    
+                    <div class="service-detail__content">
+                        <h3 class="service-detail__subtitle">¿Qué resuelve?</h3>
+                        <p>
+                            Migración de datos desde planillas Excel a sistemas, validación y limpieza de información, 
+                            importación masiva de productos, clientes o transacciones. Exportación de datos a Excel para análisis.
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Entregables</h3>
+                        <ul class="service-detail__list">
+                            <li>Script de importación con validaciones</li>
+                            <li>Interfaz gráfica opcional para selección de archivos</li>
+                            <li>Reporte de errores y datos importados</li>
+                            <li>Documentación del formato requerido</li>
+                            <li>Manejo de casos especiales y errores</li>
+                            <li>Funcionalidad de exportación a Excel</li>
+                        </ul>
+                        
+                        <h3 class="service-detail__subtitle">Tecnologías</h3>
+                        <div class="service-detail__tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">openpyxl</span>
+                            <span class="tag">xlrd</span>
+                        </div>
+                        
+                        <h3 class="service-detail__subtitle">Tiempos típicos</h3>
+                        <p>
+                            <strong>Importación simple:</strong> 2-4 días<br>
+                            <strong>Importación con validaciones complejas:</strong> 1-2 semanas<br>
+                            <strong>Sistema completo de migración:</strong> 2-4 semanas
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Ideal para...</h3>
+                        <p>
+                            Empresas que migran datos históricos, necesitan sincronizar información desde Excel, 
+                            o requieren importación/exportación periódica de datos desde planillas externas.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="service-detail">
+                    <div class="service-detail__header">
+                        <h2 class="service-detail__title">Optimización y Mantenimiento Web</h2>
+                        <span class="service-detail__badge">Mantenimiento</span>
+                    </div>
+                    
+                    <div class="service-detail__content">
+                        <h3 class="service-detail__subtitle">¿Qué resuelve?</h3>
+                        <p>
+                            Mejoras de rendimiento, actualizaciones de seguridad, corrección de errores y optimización SEO. 
+                            Mantenimiento continuo de sitios web existentes para que sigan funcionando perfectamente.
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Entregables</h3>
+                        <ul class="service-detail__list">
+                            <li>Análisis de rendimiento y problemas</li>
+                            <li>Optimización de código y recursos</li>
+                            <li>Mejoras de SEO básico</li>
+                            <li>Corrección de errores y bugs</li>
+                            <li>Actualizaciones de seguridad</li>
+                            <li>Reporte de mejoras realizadas</li>
+                        </ul>
+                        
+                        <h3 class="service-detail__subtitle">Tecnologías</h3>
+                        <div class="service-detail__tech">
+                            <span class="tag">HTML/CSS/JS</span>
+                            <span class="tag">Optimización</span>
+                            <span class="tag">SEO</span>
+                            <span class="tag">Performance</span>
+                        </div>
+                        
+                        <h3 class="service-detail__subtitle">Tiempos típicos</h3>
+                        <p>
+                            <strong>Análisis y correcciones menores:</strong> 3-5 días<br>
+                            <strong>Optimización completa:</strong> 1-2 semanas<br>
+                            <strong>Mantenimiento mensual:</strong> Según acuerdo
+                        </p>
+                        
+                        <h3 class="service-detail__subtitle">Ideal para...</h3>
+                        <p>
+                            Empresas con sitios web existentes que necesitan mejoras, correcciones o mantenimiento continuo. 
+                            Sitios que han quedado desactualizados o tienen problemas de rendimiento.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="cta-final section section--alt">
+            <div class="container">
+                <h2 class="cta-final__title">¿Listo para digitalizar tu negocio?</h2>
+                <p class="cta-final__subtitle">
+                    Cada proyecto es único. Contame tu necesidad y trabajamos juntos en la mejor solución para tu negocio. 
+                    Presupuestos sin compromiso y tiempos de entrega realistas. Respondo todas las consultas.
+                </p>
+                <div class="cta-final__buttons">
+                    <a href="contacto.html" class="btn btn--primary btn--large">Solicitar Presupuesto</a>
+                    <a href="https://wa.me/542302672827" target="_blank" rel="noopener noreferrer" class="btn btn--secondary btn--large">Hablar por WhatsApp</a>
+                    <a href="proyectos.html" class="btn btn--outline btn--large">Ver Proyectos</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h3 class="footer__title">Agustin Deux</h3>
+                    <p class="footer__bio">
+                        Desarrollador Python especializado en sistemas a medida, 
+                        automatización y soluciones end-to-end para empresas.
+                    </p>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Navegación</h4>
+                    <ul class="footer__links">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="proyectos.html">Proyectos</a></li>
+                        <li><a href="sobre-mi.html">Sobre mí</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Recursos</h4>
+                    <ul class="footer__links">
+                        <li><a href="assets/docs/cv.pdf" download>Descargar CV</a></li>
+                        <li><a href="assets/docs/perfil-tecnico.pdf" download>Perfil Técnico</a></li>
+                        <li><a href="https://github.com/Aguus1610" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Contacto</h4>
+                    <ul class="footer__links footer__social">
+                        <li>
+                            <a href="mailto:adm201364@gmail.com" aria-label="Email">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                                Email
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/542302672827" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                                </svg>
+                                WhatsApp
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/agust%C3%ADn-deux-messler-ba73b9279/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                    <rect x="2" y="9" width="4" height="12"/>
+                                    <circle cx="4" cy="4" r="2"/>
+                                </svg>
+                                LinkedIn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/agusdeux/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                                </svg>
+                                Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; <span id="current-year">2024</span> Agustin Deux. Todos los derechos reservados.
+                </p>
+                <button class="footer__back-top" id="back-to-top" aria-label="Volver arriba">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="18 15 12 9 6 15"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/542302672827" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
