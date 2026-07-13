@@ -1,0 +1,53 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "depth": 3, "name": "Orilla" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.522, -34.622],
+            [-58.498, -34.622],
+            [-58.498, -34.603],
+            [-58.522, -34.603],
+            [-58.522, -34.622]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "depth": 8, "name": "Media" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.516, -34.618],
+            [-58.504, -34.618],
+            [-58.504, -34.607],
+            [-58.516, -34.607],
+            [-58.516, -34.618]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "depth": 15, "name": "Canal" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.513, -34.615],
+            [-58.507, -34.615],
+            [-58.507, -34.61],
+            [-58.513, -34.61],
+            [-58.513, -34.615]
+          ]
+        ]
+      }
+    }
+  ]
+}
