@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import Reveal from './Reveal'
 import SectionHeader from './Section'
@@ -8,12 +8,25 @@ const projectTypes = ['Sitio web', 'Web profesional', 'Mini-app', 'Automatizaci√
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
+type PreselectContactDetail = { projectType?: string; message: string }
+
 export default function Contact() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [projectType, setProjectType] = useState(projectTypes[0])
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<Status>('idle')
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { projectType: type, message: preset } = (e as CustomEvent<PreselectContactDetail>).detail
+      if (type && projectTypes.includes(type)) setProjectType(type)
+      if (preset) setMessage(preset)
+      setStatus('idle')
+    }
+    window.addEventListener('adev:preselect-contact', handler)
+    return () => window.removeEventListener('adev:preselect-contact', handler)
+  }, [])
 
   const sendEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,6 +42,11 @@ export default function Contact() {
         from_email: email,
         project_type: projectType,
         message,
+        time: new Date().toLocaleString('es-AR'),
+        page_url: window.location.href,
+        source: 'Formulario de contacto',
+        site_name: 'A-Dev',
+        site_url: window.location.origin,
         to_email: 'adevsoft2026@gmail.com',
         subject: 'Nueva consulta desde la landing A-Dev',
       })

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import SectionHeader from '../Section'
 import { ArrowRight, Check, ChevronDown, Send } from '../icons'
@@ -34,8 +34,6 @@ const STEPS = ['Tipo', 'Estructura', 'Imagen y estilo', 'Operación', 'Detalles'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
-type PreselectDetail = { type: ProjectType; preset?: string[] }
-
 export default function QuoteSection() {
   const [step, setStep] = useState(0)
   const [projectId, setProjectId] = useState<ProjectType | null>(null)
@@ -57,22 +55,6 @@ export default function QuoteSection() {
   const [contact, setContact] = useState<ContactForm>({ name: '', email: '', phone: '', company: '' })
   const [status, setStatus] = useState<Status>('idle')
   const [mobileOpen, setMobileOpen] = useState(false)
-
-  useEffect(() => {
-    const handler = (e: Event) => {
-      const { type, preset } = (e as CustomEvent<PreselectDetail>).detail
-      setProjectId(type)
-      setCustomPages([])
-      const next: QuoteSelection = {}
-      const ids = [...(type === 'web' ? ['principal', 'contacto'] : []), ...(preset ?? [])]
-      for (const id of ids) next[id] = true
-      setSelection(next)
-      setStep(0)
-      setStatus('idle')
-    }
-    window.addEventListener('adev:select-plan', handler)
-    return () => window.removeEventListener('adev:select-plan', handler)
-  }, [])
 
   const project = PROJECT_TYPES.find((p) => p.id === projectId) ?? null
   const timelineObj = TIMELINES.find((t) => t.id === timeline) ?? TIMELINES[0]
@@ -224,6 +206,11 @@ export default function QuoteSection() {
       description: details.description,
       features_text: featuresHtml,
       message: summaryText,
+      time: new Date().toLocaleString('es-AR'),
+      page_url: window.location.href,
+      source: 'Cotizador interactivo',
+      site_name: 'A-Dev',
+      site_url: window.location.origin,
       to_email: 'adevsoft2026@gmail.com',
       subject: `Cotización ${project.name} — ${contact.name}`,
     }
