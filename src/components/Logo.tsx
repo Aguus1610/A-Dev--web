@@ -1,7 +1,7 @@
 export function LogoMark({ className = 'h-8 w-8' }: { className?: string }) {
   return (
     <img
-      src="/logo.png"
+      src={`${import.meta.env.BASE_URL}logo.png`}
       alt=""
       draggable={false}
       className={`${className} select-none object-contain`}
