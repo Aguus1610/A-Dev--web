@@ -63,6 +63,16 @@ export default function Contact() {
           sub="Contame qué necesitás y te respondo en menos de 24 horas con una propuesta personalizada, sin compromiso."
         />
 
+        <Reveal delay={100} className="mt-8 text-center">
+          <a
+            href="#cotizar"
+            className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-indigo-400/25 bg-indigo-500/10 px-5 py-2.5 text-sm text-indigo-200 transition-colors hover:border-indigo-400/50 hover:bg-indigo-500/15 hover:text-indigo-100"
+          >
+            ¿Preferís armarlo paso a paso y ver precios al instante?
+            <span className="font-semibold">Ir al cotizador interactivo →</span>
+          </a>
+        </Reveal>
+
         <div className="mt-14 grid gap-6 md:mt-16 lg:grid-cols-[1fr_1.3fr] lg:gap-10">
           <Reveal>
             <div className="flex h-full flex-col gap-4">

@@ -45,9 +45,9 @@ Hola {{NOMBRE_CLIENTE}}, thank you for reaching out! Basándome en lo que coment
 
 | Servicio | Precio USD | Forma de pago |
 |----------|-----------|--------------|
-| Web básica | **USD 100–250** | 40% al firmar, 60% al entrega |
-| Web profesional | **USD 350–750** | 30% al firmar, 40% a mitad, 30% al entrega |
-| Mini-app | **USD 750–1.950** | 30% al firmar, 40% a la mitad del proyecto, 30% al entrega |
+| Web básica | **USD 50–200** | 40% al firmar, 60% al entrega |
+| Web profesional | **USD 300–500** | 30% al firmar, 40% a mitad, 30% al entrega |
+| Mini-app | **USD 700–900** | 30% al firmar, 40% a la mitad del proyecto, 30% al entrega |
 
 *Los precios incluyen hasta 2 revisiones mayores. Cambios mayores posteriores tienen un costo adicional de USD 25 por hora.*
 

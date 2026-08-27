@@ -1,19 +1,5 @@
 import { ArrowRight, Check } from './icons'
-
-const tech = [
-  'React',
-  'TypeScript',
-  'Node.js',
-  'PostgreSQL',
-  'Supabase',
-  'Tailwind CSS',
-  'Vite',
-  'HTML5',
-  'CSS3',
-  'JavaScript',
-  'Git',
-  'Figma',
-]
+import TechCarousel from './TechCarousel'
 
 function Terminal() {
   return (
@@ -90,7 +76,7 @@ export default function Hero() {
       <div className="container-x relative">
         <div className="mx-auto max-w-3xl text-center">
           <a
-            href="#contacto"
+            href="#cotizar"
             className="animate-fade-up inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-zinc-300 backdrop-blur transition-colors hover:border-emerald-400/30 hover:bg-white/10"
           >
             <span className="relative flex h-2 w-2">
@@ -111,7 +97,7 @@ export default function Hero() {
           </p>
 
           <div className="animate-fade-up-delay-3 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a href="#contacto" className="btn-primary">
+            <a href="#cotizar" className="btn-primary">
               Cotizar mi proyecto
               <ArrowRight className="h-4 w-4" />
             </a>
@@ -138,22 +124,7 @@ export default function Hero() {
 
         <Terminal />
 
-        <div className="relative mt-20 border-y border-white/5 bg-white/[0.02] py-6 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-          <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.25em] text-zinc-600">
-            Tecnologías con las que trabajo
-          </p>
-          <div className="marquee flex w-max items-center gap-14">
-            {[...tech, ...tech].map((item, i) => (
-              <span
-                key={`${item}-${i}`}
-                className="flex items-center gap-2.5 whitespace-nowrap text-sm font-medium text-zinc-500"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400" />
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
+        <TechCarousel />
       </div>
     </section>
   )

@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import Services from './components/Services'
 import Process from './components/Process'
 import Pricing from './components/Pricing'
+import QuoteSection from './components/quote/QuoteSection'
 import Faq from './components/Faq'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -28,9 +29,12 @@ export default function App() {
           <Pricing />
         </StackSection>
         <StackSection index={4}>
-          <Faq />
+          <QuoteSection />
         </StackSection>
         <StackSection index={5}>
+          <Faq />
+        </StackSection>
+        <StackSection index={6}>
           <Contact />
           <Footer />
         </StackSection>

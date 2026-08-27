@@ -6,6 +6,7 @@ const links = [
   { href: '#servicios', label: 'Servicios' },
   { href: '#proceso', label: 'Proceso' },
   { href: '#precios', label: 'Precios' },
+  { href: '#cotizar', label: 'Cotizador' },
   { href: '#faq', label: 'FAQ' },
 ]
 
@@ -45,7 +46,7 @@ export default function Nav() {
         </ul>
 
         <div className="hidden md:block">
-          <a href="#contacto" className="btn-primary !px-5 !py-2.5">
+          <a href="#cotizar" className="btn-primary !px-5 !py-2.5">
             Cotizar proyecto
             <ArrowRight className="h-4 w-4" />
           </a>
@@ -78,7 +79,7 @@ export default function Nav() {
             ))}
           </ul>
           <a
-            href="#contacto"
+            href="#cotizar"
             onClick={() => setOpen(false)}
             className="btn-primary mt-4 w-full"
           >

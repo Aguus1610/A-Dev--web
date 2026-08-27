@@ -1,11 +1,14 @@
 import Reveal from './Reveal'
 import SectionHeader from './Section'
 import { ArrowRight, Check } from './icons'
+import type { ProjectType } from '../quote/catalog'
 
 const plans = [
   {
+    type: 'web' as ProjectType,
+    preset: undefined as string[] | undefined,
     name: 'Web básica',
-    price: 'USD 100–250',
+    price: 'USD 50–200',
     description: 'Presencia digital simple y efectiva para empezar a vender.',
     features: [
       '1 página + contacto',
@@ -16,8 +19,10 @@ const plans = [
     featured: false,
   },
   {
+    type: 'web' as ProjectType,
+    preset: ['nosotros', 'productos', 'testimonios'] as string[],
     name: 'Web profesional',
-    price: 'USD 350–750',
+    price: 'USD 300–500',
     description: 'El sitio completo que tu negocio necesita para destacar.',
     features: [
       'Hasta 5 secciones a medida',
@@ -29,8 +34,10 @@ const plans = [
     featured: true,
   },
   {
+    type: 'app' as ProjectType,
+    preset: undefined as string[] | undefined,
     name: 'Mini-app',
-    price: 'USD 750–1.950',
+    price: 'USD 700–900',
     description: 'Aplicación web con panel de gestión para digitalizar tu operación.',
     features: [
       'Autenticación de usuarios',
@@ -117,7 +124,14 @@ function PlanContent({ plan }: { plan: Plan }) {
         ))}
       </ul>
       <a
-        href="#contacto"
+        href="#cotizar"
+        onClick={() =>
+          window.dispatchEvent(
+            new CustomEvent<{ type: ProjectType; preset?: string[] }>('adev:select-plan', {
+              detail: { type: plan.type, preset: plan.preset },
+            }),
+          )
+        }
         className={`${plan.featured ? 'btn-primary' : 'btn-ghost'} mt-8 w-full`}
       >
         Cotizar este plan

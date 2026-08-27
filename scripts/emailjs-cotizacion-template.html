@@ -1,0 +1,135 @@
+<!--
+  TEMPLATE EMAILJS — "Cotización A-Dev"
+  ────────────────────────────────────────────────────────────
+  Cómo usarlo:
+  1) En el dashboard de EmailJS: Email Templates → Create New Template
+  2) Nombre:  "Cotización A-Dev"
+  3) Pegar TODO este HTML en el editor (Content tab)
+  4) Subject: Cotización {{project_type}} — {{from_name}}
+  5) "To Email":  {{to_email}}      (te llega a vos)
+  6) "Reply To":  {{from_email}}    (respondés directo al cliente)
+  7) Guardar y copiar el Template ID (ej: template_xxxxxxx) →
+     reemplazarlo en src/components/quote/QuoteSection.tsx (QUOTE_TEMPLATE_ID)
+
+  Variables usadas (se envían automáticamente desde el cotizador):
+  to_email, from_name, from_email, from_phone, from_company, project_type,
+  base_range, budget_total, budget_monthly, timeline_label,
+  structure_text, style_summary, sector, budget_client, references,
+  description, features_text, message, subject
+-->
+<!doctype html>
+<html lang="es">
+  <body style="margin:0;padding:0;background-color:#f1f5f9;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f1f5f9;padding:24px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
+
+            <!-- Header -->
+            <tr>
+              <td style="background:linear-gradient(135deg,#4f46e5,#8b5cf6);border-radius:14px 14px 0 0;padding:28px 32px;">
+                <p style="margin:0;font-size:12px;letter-spacing:3px;color:#c7d2fe;text-transform:uppercase;font-weight:bold;">Nueva cotización</p>
+                <p style="margin:8px 0 0;font-size:24px;font-weight:bold;color:#ffffff;">
+                  A-<span style="color:#a5f3fc;">Dev</span> · {{project_type}}
+                </p>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style="background-color:#ffffff;padding:32px;">
+                <p style="margin:0;font-size:15px;line-height:22px;color:#334155;">
+                  <strong style="color:#0f172a;">{{from_name}}</strong> ({{from_company}}) envió una
+                  cotización desde la web.
+                </p>
+
+                <!-- Estimado -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0 0;background-color:#eef2ff;border-radius:12px;">
+                  <tr>
+                    <td style="padding:18px 20px;">
+                      <p style="margin:0;font-size:11px;letter-spacing:2px;color:#6366f1;text-transform:uppercase;font-weight:bold;">Presupuesto estimado</p>
+                      <p style="margin:8px 0 0;font-size:28px;font-weight:bold;color:#312e81;">
+                        {{budget_total}}
+                      </p>
+                      <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:10px;font-size:13px;color:#475569;">
+                        <tr>
+                          <td style="padding:3px 0;">Plazo:</td>
+                          <td style="padding:3px 0;font-weight:bold;color:#1e293b;">{{timeline_label}}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:3px 0;">Mantenimiento:</td>
+                          <td style="padding:3px 0;font-weight:bold;color:#1e293b;">
+                            {{budget_monthly}} /mes
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Estructura -->
+                <p style="margin:24px 0 0;font-size:13px;font-weight:bold;letter-spacing:1px;color:#0f172a;text-transform:uppercase;">Estructura del proyecto</p>
+                <p style="margin:8px 0 0;font-size:14px;line-height:22px;color:#334155;white-space:pre-line;">{{structure_text}}</p>
+
+                <!-- Imagen y estilo -->
+                <p style="margin:24px 0 0;font-size:13px;font-weight:bold;letter-spacing:1px;color:#0f172a;text-transform:uppercase;">Imagen y estilo</p>
+                <p style="margin:8px 0 0;font-size:14px;line-height:22px;color:#334155;white-space:pre-line;">{{style_summary}}</p>
+
+                <!-- Desglose -->
+                <p style="margin:24px 0 0;font-size:13px;font-weight:bold;letter-spacing:1px;color:#0f172a;text-transform:uppercase;">Desglose del presupuesto</p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #e2e8f0;border-bottom:2px solid #e2e8f0;">
+                  <tr>
+                    <td style="padding:8px 0;color:#64748b;font-size:13px;">Base — {{project_type}}</td>
+                    <td style="padding:8px 0;text-align:right;font-weight:bold;color:#0f172a;font-size:13px;">{{base_range}}</td>
+                  </tr>
+                  {{{features_text}}}
+                </table>
+
+                <!-- Info del cliente -->
+                <p style="margin:24px 0 0;font-size:13px;font-weight:bold;letter-spacing:1px;color:#0f172a;text-transform:uppercase;">Sobre el cliente</p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:13px;color:#475569;">
+                  <tr>
+                    <td style="padding:3px 0;width:120px;">Rubro:</td>
+                    <td style="padding:3px 0;color:#1e293b;">{{sector}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:3px 0;">Presupuesto:</td>
+                    <td style="padding:3px 0;color:#1e293b;">{{budget_client}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:3px 0;">Referencias:</td>
+                    <td style="padding:3px 0;color:#1e293b;">{{references}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:3px 0;">Email:</td>
+                    <td style="padding:3px 0;color:#1e293b;">
+                      <a href="mailto:{{from_email}}" style="color:#4f46e5;">{{from_email}}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:3px 0;">WhatsApp:</td>
+                    <td style="padding:3px 0;color:#1e293b;">{{from_phone}}</td>
+                  </tr>
+                </table>
+
+                <!-- Descripción -->
+                <p style="margin:24px 0 0;font-size:13px;font-weight:bold;letter-spacing:1px;color:#0f172a;text-transform:uppercase;">Descripción del proyecto</p>
+                <p style="margin:8px 0 0;font-size:14px;line-height:22px;color:#334155;white-space:pre-line;">{{description}}</p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color:#f8fafc;border-radius:0 0 14px 14px;border-top:1px solid #e2e8f0;padding:20px 32px;text-align:center;">
+                <p style="margin:0;font-size:11px;color:#94a3b8;">
+                  Recibiste este correo porque un cliente completó el cotizador de tu sitio A-Dev.
+                </p>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
