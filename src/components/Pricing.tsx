@@ -1,12 +1,10 @@
 import Reveal from './Reveal'
 import SectionHeader from './Section'
 import { ArrowRight, Check } from './icons'
-import type { ProjectType } from '../quote/catalog'
 
 const plans = [
   {
-    type: 'web' as ProjectType,
-    preset: undefined as string[] | undefined,
+    projectType: 'Sitio web',
     name: 'Web básica',
     price: 'USD 50–200',
     description: 'Presencia digital simple y efectiva para empezar a vender.',
@@ -19,8 +17,7 @@ const plans = [
     featured: false,
   },
   {
-    type: 'web' as ProjectType,
-    preset: ['nosotros', 'productos', 'testimonios'] as string[],
+    projectType: 'Web profesional',
     name: 'Web profesional',
     price: 'USD 300–500',
     description: 'El sitio completo que tu negocio necesita para destacar.',
@@ -34,8 +31,7 @@ const plans = [
     featured: true,
   },
   {
-    type: 'app' as ProjectType,
-    preset: undefined as string[] | undefined,
+    projectType: 'Mini-app',
     name: 'Mini-app',
     price: 'USD 700–900',
     description: 'Aplicación web con panel de gestión para digitalizar tu operación.',
@@ -124,11 +120,21 @@ function PlanContent({ plan }: { plan: Plan }) {
         ))}
       </ul>
       <a
-        href="#cotizar"
+        href="#contacto"
         onClick={() =>
           window.dispatchEvent(
-            new CustomEvent<{ type: ProjectType; preset?: string[] }>('adev:select-plan', {
-              detail: { type: plan.type, preset: plan.preset },
+            new CustomEvent<{ projectType: string; message: string }>('adev:preselect-contact', {
+              detail: {
+                projectType: plan.projectType,
+                message: [
+                  `Hola Agustín, me interesa el plan "${plan.name}" (${plan.price}).`,
+                  '',
+                  'Lo que incluye:',
+                  ...plan.features.map((f) => `- ${f}`),
+                  '',
+                  'Quiero avanzar con una cotización. Contame cómo seguimos.',
+                ].join('\n'),
+              },
             }),
           )
         }

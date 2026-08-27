@@ -27,7 +27,7 @@ import type { ContactForm, DetailsForm, StyleForm } from './QuoteSteps'
 
 const SERVICE_ID = 'service_oh4erk7'
 const PUBLIC_KEY = 'SHCCKv__9-9XVNQDv'
-const QUOTE_TEMPLATE_ID = 'template_cotizador_a_dev' // ← reemplazar con el ID del template "Cotización A-Dev"
+const QUOTE_TEMPLATE_ID = 'template_ddtz01q'
 const FALLBACK_TEMPLATE_ID = 'template_ke1v1qj'
 
 const STEPS = ['Tipo', 'Estructura', 'Imagen y estilo', 'Operación', 'Detalles', 'Envío']
