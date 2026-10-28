@@ -1,6 +1,6 @@
 import Reveal from './Reveal'
 import SectionHeader from './Section'
-import { ArrowRight, Database, Monitor } from './icons'
+import { ArrowRight } from './icons'
 
 const projects = [
   {
@@ -11,7 +11,7 @@ const projects = [
     tags: ['React', 'Tailwind CSS', 'SEO', 'WhatsApp'],
     url: 'https://aguus1610.github.io/EAD-web-nuevo/',
     cta: 'Visitar sitio',
-    icon: Monitor,
+    shot: 'shots/ead-web.jpg',
   },
   {
     name: 'EAD Oleohidráulica Suite',
@@ -21,7 +21,7 @@ const projects = [
     tags: ['Base44', 'Deno', 'Gestión de taller'],
     url: 'https://share--ead-oleohidraulica-2026-.base44.app',
     cta: 'Ver demo',
-    icon: Database,
+    shot: 'shots/ead-suite.jpg',
   },
   {
     name: 'Soft Price Flow Direct',
@@ -31,7 +31,7 @@ const projects = [
     tags: ['Base44', 'Gestión comercial'],
     url: 'https://share--soft-price-flow-direct.base44.app',
     cta: 'Ver demo',
-    icon: Database,
+    shot: 'shots/soft-price.jpg',
   },
 ]
 
@@ -57,51 +57,60 @@ export default function Portfolio() {
         <div className="mt-14 grid gap-5 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, i) => (
             <Reveal key={project.name} delay={i * 120} className="h-full">
-              <article className="card-glass group relative flex h-full flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-400/30 hover:bg-white/[0.06] hover:shadow-2xl hover:shadow-indigo-950/40">
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                />
-                <div className="relative flex items-start justify-between gap-3">
-                  <div className="inline-flex rounded-xl border border-white/10 bg-gradient-to-br from-indigo-500/20 to-cyan-500/10 p-3 text-indigo-300 transition-colors duration-300 group-hover:text-cyan-300">
-                    <project.icon className="h-6 w-6" />
-                  </div>
-                  <span className="flex items-center gap-1.5 rounded-full border border-emerald-400/25 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-300">
+              <article className="card-glass group relative flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-400/30 hover:bg-white/[0.06] hover:shadow-2xl hover:shadow-indigo-950/40">
+                <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5">
+                  <img
+                    src={`${import.meta.env.BASE_URL}${project.shot}`}
+                    alt={`Captura de pantalla de ${project.name}`}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-[#0a0c14] via-transparent to-transparent opacity-70"
+                  />
+                  <span className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full border border-emerald-400/25 bg-[#0a0c14]/80 px-2.5 py-1 text-[10px] font-semibold text-emerald-300 backdrop-blur">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                     En producción · +1 año
                   </span>
+                  <span className="absolute left-3 top-3 rounded-full border border-white/10 bg-[#0a0c14]/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-300 backdrop-blur">
+                    {project.type}
+                  </span>
                 </div>
 
-                <h3 className="font-display relative mt-5 text-lg font-semibold text-white">
-                  {project.name}
-                </h3>
-                <p className="relative mt-1 text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  {project.type}
-                </p>
-                <p className="relative mt-2.5 flex-1 text-sm leading-relaxed text-zinc-400">
-                  {project.description}
-                </p>
+                <div className="relative flex flex-1 flex-col p-6">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+                  <h3 className="font-display relative text-lg font-semibold text-white">
+                    {project.name}
+                  </h3>
+                  <p className="relative mt-2.5 flex-1 text-sm leading-relaxed text-zinc-400">
+                    {project.description}
+                  </p>
 
-                <div className="relative mt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-zinc-400"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                  <div className="relative mt-4 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-zinc-400"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-indigo-300 transition-colors hover:text-indigo-200"
+                  >
+                    {project.cta}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </a>
                 </div>
-
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-indigo-300 transition-colors hover:text-indigo-200"
-                >
-                  {project.cta}
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
               </article>
             </Reveal>
           ))}
