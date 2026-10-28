@@ -37,7 +37,7 @@ export default function Contact() {
       const emailjs = await import('@emailjs/browser')
       emailjs.init({ publicKey: 'SHCCKv__9-9XVNQDv' })
 
-      await emailjs.send('service_oh4erk7', 'template_ke1v1qj', {
+      await emailjs.send('service_fzak1ag', 'template_ke1v1qj', {
         from_name: name,
         from_email: email,
         project_type: projectType,

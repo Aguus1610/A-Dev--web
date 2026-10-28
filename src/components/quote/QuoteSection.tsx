@@ -25,7 +25,7 @@ import QuoteSuccess from './QuoteSuccess'
 import { StepContact, StepDetails, StepOperation, StepStructure, StepStyle, StepType } from './QuoteSteps'
 import type { ContactForm, DetailsForm, StyleForm } from './QuoteSteps'
 
-const SERVICE_ID = 'service_oh4erk7'
+const SERVICE_ID = 'service_fzak1ag'
 const PUBLIC_KEY = 'SHCCKv__9-9XVNQDv'
 const QUOTE_TEMPLATE_ID = 'template_ddtz01q'
 const FALLBACK_TEMPLATE_ID = 'template_ke1v1qj'
