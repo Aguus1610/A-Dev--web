@@ -4,9 +4,9 @@ import { ArrowRight, Close, Menu } from './icons'
 
 const links = [
   { href: '#servicios', label: 'Servicios' },
+  { href: '#proyectos', label: 'Proyectos' },
   { href: '#proceso', label: 'Proceso' },
   { href: '#precios', label: 'Precios' },
-  { href: '#cotizar', label: 'Cotizador' },
   { href: '#faq', label: 'FAQ' },
 ]
 

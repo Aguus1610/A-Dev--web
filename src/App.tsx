@@ -1,6 +1,7 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Services from './components/Services'
+import Portfolio from './components/Portfolio'
 import Process from './components/Process'
 import Pricing from './components/Pricing'
 import QuoteSection from './components/quote/QuoteSection'
@@ -23,18 +24,21 @@ export default function App() {
           <Services />
         </StackSection>
         <StackSection index={2}>
-          <Process />
+          <Portfolio />
         </StackSection>
         <StackSection index={3}>
-          <Pricing />
+          <Process />
         </StackSection>
         <StackSection index={4}>
-          <QuoteSection />
+          <Pricing />
         </StackSection>
         <StackSection index={5}>
-          <Faq />
+          <QuoteSection />
         </StackSection>
         <StackSection index={6}>
+          <Faq />
+        </StackSection>
+        <StackSection index={7}>
           <Contact />
           <Footer />
         </StackSection>
