@@ -37,6 +37,22 @@ export function ChevronDown({ className }: IconProps) {
   )
 }
 
+export function ChevronLeft({ className }: IconProps) {
+  return (
+    <svg {...stroke} className={className}>
+      <path d="m15 18-6-6 6-6" />
+    </svg>
+  )
+}
+
+export function ChevronRight({ className }: IconProps) {
+  return (
+    <svg {...stroke} className={className}>
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  )
+}
+
 export function Menu({ className }: IconProps) {
   return (
     <svg {...stroke} className={className}>
