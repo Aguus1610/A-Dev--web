@@ -22,12 +22,7 @@ const projects = [
     tags: ['Base44', 'Deno', 'Gestión de taller'],
     url: 'https://share--ead-oleohidraulica-2026-.base44.app',
     cta: 'Ver demo',
-    shots: [
-      'shots/ead-suite-1.jpg',
-      'shots/ead-suite-2.jpg',
-      'shots/ead-repuestos-1.jpg',
-      'shots/ead-repuestos-2.jpg',
-    ],
+    shots: ['shots/ead-suite-1.jpg', 'shots/ead-suite-2.jpg'],
   },
   {
     name: 'Soft Price Flow Direct',
@@ -37,7 +32,7 @@ const projects = [
     tags: ['Base44', 'Gestión comercial'],
     url: 'https://share--soft-price-flow-direct.base44.app',
     cta: 'Ver demo',
-    shots: ['shots/soft-price.jpg'],
+    shots: ['shots/soft-price-1.jpg', 'shots/soft-price-2.jpg', 'shots/soft-price-3.jpg'],
   },
 ]
 
