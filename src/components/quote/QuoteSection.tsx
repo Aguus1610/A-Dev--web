@@ -27,8 +27,7 @@ import type { ContactForm, DetailsForm, StyleForm } from './QuoteSteps'
 
 const SERVICE_ID = 'service_fzak1ag'
 const PUBLIC_KEY = 'SHCCKv__9-9XVNQDv'
-const QUOTE_TEMPLATE_ID = 'template_ddtz01q'
-const FALLBACK_TEMPLATE_ID = 'template_ke1v1qj'
+const QUOTE_TEMPLATE_ID = 'template_ke1v1qj'
 
 const STEPS = ['Tipo', 'Estructura', 'Imagen y estilo', 'Operación', 'Detalles', 'Envío']
 
@@ -218,11 +217,7 @@ export default function QuoteSection() {
     try {
       const emailjs = await import('@emailjs/browser')
       emailjs.init({ publicKey: PUBLIC_KEY })
-      try {
-        await emailjs.send(SERVICE_ID, QUOTE_TEMPLATE_ID, payload)
-      } catch {
-        await emailjs.send(SERVICE_ID, FALLBACK_TEMPLATE_ID, payload)
-      }
+      await emailjs.send(SERVICE_ID, QUOTE_TEMPLATE_ID, payload)
       setStatus('success')
     } catch (error) {
       console.error('Error al enviar la cotización', error)
